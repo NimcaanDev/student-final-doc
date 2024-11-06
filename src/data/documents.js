@@ -6,7 +6,8 @@ const documents = [
         class: "3C",
         shift: "Morning",
         course: "Information Security",
-        faculty: "Computer Science"
+        faculty: "Computer Science",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 2,
@@ -15,7 +16,8 @@ const documents = [
         class: "3C",
         shift: "Morning",
         course: "Operating Systems",
-        faculty: "Computer Science"
+        faculty: "Computer Science",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 3,
@@ -24,7 +26,8 @@ const documents = [
         class: "2A",
         shift: "Afternoon",
         course: "Thermodynamics",
-        faculty: "Engineering"
+        faculty: "Engineering",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 4,
@@ -33,7 +36,8 @@ const documents = [
         class: "4C",
         shift: "Morning",
         course: "Computer Ethics",
-        faculty: "IT"
+        faculty: "IT",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 5,
@@ -42,7 +46,8 @@ const documents = [
         class: "2B",
         shift: "Morning",
         course: "Database Management",
-        faculty: "IT"
+        faculty: "IT",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 6,
@@ -51,7 +56,8 @@ const documents = [
         class: "1A",
         shift: "Morning",
         course: "Computer Ethics",
-        faculty: "Computer Science"
+        faculty: "Computer Science",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 7,
@@ -60,7 +66,8 @@ const documents = [
         class: "4A",
         shift: "Afternoon",
         course: "Capstone Project",
-        faculty: "Computer Science"
+        faculty: "Computer Science",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 8,
@@ -69,7 +76,8 @@ const documents = [
         class: "2A",
         shift: "Afternoon",
         course: "Fluid Mechanics",
-        faculty: "Engineering"
+        faculty: "Engineering",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 9,
@@ -78,7 +86,8 @@ const documents = [
         class: "4B",
         shift: "Morning",
         course: "Engineering Design",
-        faculty: "Engineering"
+        faculty: "Engineering",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 10,
@@ -87,7 +96,8 @@ const documents = [
         class: "2C",
         shift: "Afternoon",
         course: "Database Systems",
-        faculty: "Computer Science"
+        faculty: "Computer Science",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 11,
@@ -96,7 +106,8 @@ const documents = [
         class: "2B",
         shift: "Morning",
         course: "Thermodynamics",
-        faculty: "Engineering"
+        faculty: "Engineering",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 12,
@@ -105,7 +116,8 @@ const documents = [
         class: "1D",
         shift: "Morning",
         course: "Networking",
-        faculty: "IT"
+        faculty: "IT",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 13,
@@ -114,7 +126,8 @@ const documents = [
         class: "1A",
         shift: "Afternoon",
         course: "Physics",
-        faculty: "Engineering"
+        faculty: "Engineering",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 14,
@@ -123,7 +136,8 @@ const documents = [
         class: "4A",
         shift: "Morning",
         course: "Machine Learning",
-        faculty: "Computer Science"
+        faculty: "Computer Science",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 15,
@@ -132,7 +146,8 @@ const documents = [
         class: "1B",
         shift: "Morning",
         course: "Web Development",
-        faculty: "IT"
+        faculty: "IT",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 16,
@@ -141,7 +156,8 @@ const documents = [
         class: "1C",
         shift: "Afternoon",
         course: "Introduction to Engineering",
-        faculty: "Engineering"
+        faculty: "Engineering",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 17,
@@ -150,7 +166,8 @@ const documents = [
         class: "3A",
         shift: "Morning",
         course: "Software Engineering",
-        faculty: "IT"
+        faculty: "IT",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 18,
@@ -159,7 +176,8 @@ const documents = [
         class: "4C",
         shift: "Afternoon",
         course: "Advanced Web Development",
-        faculty: "IT"
+        faculty: "IT",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 19,
@@ -168,7 +186,8 @@ const documents = [
         class: "2A",
         shift: "Morning",
         course: "Algorithms",
-        faculty: "Computer Science"
+        faculty: "Computer Science",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
     {
         id: 20,
@@ -177,7 +196,8 @@ const documents = [
         class: "4B",
         shift: "Morning",
         course: "Project Management",
-        faculty: "Engineering"
+        faculty: "Engineering",
+        fileId: "19ItAXUwGwSbQ0AvwV3IYGses_-dny3mA"
     },
 ];
 

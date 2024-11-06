@@ -78,6 +78,7 @@ const MainSection = ({ selectedFaculty }) => {
           {documents.map((document, index) => (
             <Doc
               key={index}
+              fileId={document.fileId}
               fileType={document.format}
               fileName={document.name}
               courseName={document.course}
