@@ -11,9 +11,9 @@ const SideBar = ({ faculties, setSelectedFaculty }) => {
   };
 
   return (
-    
+
     <div
-      className={`side-bar flex-col justify-between h-[93vh] bg-black w-1/2 md:w-1/3 xl:w-1/5 px-6 py-4 top-[4.2rem] fixed right-0 md:sticky md:left-0 md:top-2 flex  md:transition-none transition duration-300 md:translate-x-0 ${!isClosed ? "translate-x-0" : "translate-x-96"}`}
+      className={`side-bar flex-col justify-between h-[100vh] bg-black w-1/2 md:w-1/3 xl:w-1/5 px-6 py-4 top-[0rem] fixed right-0 md:sticky md:left-0 md:top-0 flex  md:transition-none transition duration-300 md:translate-x-0 ${!isClosed ? "translate-x-0" : "translate-x-96"}`}
     >
       <div className="side-bar-upper-part">
         <div className="side-bar-title text-yellow-200 text-xl">Faculty</div>
@@ -21,11 +21,10 @@ const SideBar = ({ faculties, setSelectedFaculty }) => {
           {faculties.map((faculty, index) => (
             <li
               key={index}
-              className={`cursor-pointer transition py-1 px-4 ${
-                activeIndex != index
-                  ? " hover:border hover:border-white"
-                  : "bg-white text-black"
-              }`}
+              className={`cursor-pointer transition py-1 px-4 ${activeIndex != index
+                ? " hover:border hover:border-white"
+                : "bg-white text-black"
+                }`}
               onClick={() => sideBarClickHandler(index)}
             >
               {faculty.name}

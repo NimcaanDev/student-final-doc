@@ -17,7 +17,7 @@ const Header = () => {
       </div>
       <div className="right-part flex gap-4 items-center">
         <div className="upload border-2 border-white text-white py-1 px-5 transition hover:bg-yellow-200 hover:text-black cursor-pointer hover:border-yellow-200">
-          <Link to='/upload'>Upload</Link>
+          <Link to='/studentdocs/upload'>Upload</Link>
         </div>
         <div className="block md:hidden cursor-pointer" onClick={changeSideBarState}>
           <i className="fa-solid fa-bars text-white text-3xl"></i>

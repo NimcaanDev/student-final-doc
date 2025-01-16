@@ -6,11 +6,11 @@ import NotFound from './pages/NotFound'
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/studentdocs',
     element: <MainPage />
   },
   {
-    path: '/upload',
+    path: 'studentdocs/upload',
     element: <UploadPage />
   },
   {
