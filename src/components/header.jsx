@@ -11,16 +11,27 @@ const Header = () => {
   }
 
   return (
-    <div className="header bg-black p-4 px-3 md:px-6 flex justify-between items-center sticky top-0 z-50 md:static">
-      <div className="logo font-konit text-yellow-200 text-3xl">
+    <div className="header bg-blue-700 p-4 px-3 md:px-6 flex justify-between items-center sticky top-0 z-50 md:static">
+      <div className="logo font-konit text-white text-3xl">
         StudentDocs
       </div>
       <div className="right-part flex gap-4 items-center">
-        <div className="upload border-2 border-white text-white py-1 px-5 transition hover:bg-yellow-200 hover:text-black cursor-pointer hover:border-yellow-200">
+        <div className="upload border-2 border-white text-white py-1 px-5 transition hover:bg-white rounded-md hover:text-black cursor-pointer">
           <Link to='/studentdocs/upload'>Upload</Link>
         </div>
+        <div>
+          <Link to='/studentdocs/customer-support'>
+            <div className="text-white text-2xl bg-blue-800 hover:text-gray-300 px-2 py-1 rounded-full transition relative group">
+              <i class="fa-solid fa-headset"></i>
+              <span class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition w-fit">
+                Report
+              </span>
+            </div>
+          </Link>
+        </div>
         <div className="block md:hidden cursor-pointer" onClick={changeSideBarState}>
-          <i className="fa-solid fa-bars text-white text-3xl"></i>
+          <i className="fa-solid fa-bars text-white hover:text-gray-300 text-3xl transition"></i>
+
         </div>
       </div>
     </div>

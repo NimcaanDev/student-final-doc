@@ -33,7 +33,7 @@ const MainSection = ({ selectedFaculty }) => {
       <div className="info-part flex flex-wrap gap-2 sm:gap-10 flex-col sm:flex-row md:flex-row md:justify-start justify-between">
         <div className="year-part flex gap-2">
           <div className="year-title">Year:</div>
-          <select name="year" id="year" onChange={handleYearChange}>
+          <select className="bg-white border rounded px-3 py-1 text-gray-700 focus:outline-none focus:ring" name="year" id="year" onChange={handleYearChange}>
             {selectedFaculty.classes.map((classItem, index) => (
               <option value={classItem.year} key={index}>
                 {classItem.year}
@@ -43,7 +43,7 @@ const MainSection = ({ selectedFaculty }) => {
         </div>
         <div className="class-part flex gap-2">
           <div className="class-title">Class:</div>
-          <select name="class" id="class">
+          <select className="bg-white border rounded px-3 py-1 text-gray-700 focus:outline-none focus:ring" name="class" id="class">
             {selectedFaculty.classes
               .filter((classItem) => classItem.year === selectedYear)
               .flatMap((classItem) =>
@@ -57,7 +57,7 @@ const MainSection = ({ selectedFaculty }) => {
         </div>
         <div className="course-part flex gap-2">
           <div className="course-title">Course:</div>
-          <select name="course" id="course">
+          <select className="bg-white border rounded px-3 py-1 text-gray-700 focus:outline-none focus:ring" name="course" id="course">
             {selectedFaculty.classes
               .filter((classItem) => classItem.year === selectedYear)
               .flatMap((classItem) =>
@@ -84,6 +84,7 @@ const MainSection = ({ selectedFaculty }) => {
               courseName={document.course}
               shift={document.shift}
               classIdentify={document.class}
+              size={document.size}
             />
           ))}
         </div>
