@@ -1,13 +1,13 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useSidebar } from "../context/sideBarContext";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { toggleSideBar } from "../../redux/slices/sideBarSlice";
+import { Link } from "react-router-dom";
 
 const Header = () => {
-  const navigate = useNavigate()
-  const { toggleSidebar } = useSidebar();
+  const dispatch = useDispatch()
 
-  const toUploadPage = () => {
-    navigate("pages/uploadPage");
+  const changeSideBarState = () => {
+    dispatch(toggleSideBar())
   }
 
   return (
@@ -16,10 +16,10 @@ const Header = () => {
         StudentDocs
       </div>
       <div className="right-part flex gap-4 items-center">
-        <div className="upload border-2 border-white text-white py-1 px-5 transition hover:bg-yellow-200 hover:text-black cursor-pointer hover:border-yellow-200" onClick={toUploadPage}>
-          Upload
+        <div className="upload border-2 border-white text-white py-1 px-5 transition hover:bg-yellow-200 hover:text-black cursor-pointer hover:border-yellow-200">
+          <Link to='/upload'>Upload</Link>
         </div>
-        <div className="block md:hidden cursor-pointer" onClick={toggleSidebar}>
+        <div className="block md:hidden cursor-pointer" onClick={changeSideBarState}>
           <i className="fa-solid fa-bars text-white text-3xl"></i>
         </div>
       </div>

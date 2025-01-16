@@ -1,16 +1,10 @@
 import React from "react";
-import { SidebarProvider } from "./context/sideBarContext";
-import Header from "./components/header";
-import Content from "./components/content";
+import { BrowserRouter, RouterProvider } from "react-router-dom";
+import router from "./router";
 
 function App() {
   return (
-    <div className="w-full">
-      <SidebarProvider>
-        <Header />
-        <Content />
-      </SidebarProvider>
-    </div>
+    <RouterProvider router={router} />
   );
 }
 

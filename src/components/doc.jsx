@@ -16,7 +16,7 @@ const Doc = ({
       <div className="doc p-4 shadow-box rounded-md flex flex-col gap-3">
         <div className="cover-part h-20 mx-auto">
           <img
-            src={`/studentdocs/assets/${fileType.toLowerCase()}.png`}
+            src={`/assets/${fileType.toLowerCase()}.png`}
             className="h-full"
           />
         </div>
