@@ -30,7 +30,7 @@ const Header = () => {
           </Link>
         </div>
         <div className="block md:hidden cursor-pointer" onClick={changeSideBarState}>
-          <i className="fa-solid fa-bars text-white hover:text-gray-300 text-3xl transition"></i>
+          <i className="fa-solid fa-bars text-white text-3xl transition"></i>
 
         </div>
       </div>
