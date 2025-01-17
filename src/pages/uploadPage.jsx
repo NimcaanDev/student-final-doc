@@ -31,7 +31,7 @@ const UploadPage = () => {
   }
 
   return (
-    <div className='w-[500px] mx-auto my-10 flex flex-col gap-6'>
+    <div className='w-[80%] md:w-[500px] mx-auto my-10 flex flex-col gap-6'>
       <Back />
       <div className='info-section bg-white shadow-md rounded-lg flex flex-col'>
         <div className="top-part bg-blue-700 text-white font-semibold font-konit text-center text-2xl py-3 rounded-tl-lg rounded-tr-lg">Upload</div>
