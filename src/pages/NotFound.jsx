@@ -1,14 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Back from '../components/back'
 
 const NotFound = () => {
   return (
-    <div className='flex flex-col h-full justify-center items-center'>
-      <h1>404</h1>
+    <div className='flex flex-col h-screen justify-center items-center'>
+      <h1 className='text-blue-700 text-5xl font-bold'>404</h1>
       <p>Page is not found!</p>
-      <button className='bg-black text-white px-5 py-2 rounded-md'>
-        <Link to='/studentdocs'>Back to home</Link>
-      </button>
+      <div className='mt-5'>
+        <Back />
+      </div>
     </div>
   )
 }
