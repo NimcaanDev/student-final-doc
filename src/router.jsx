@@ -4,6 +4,7 @@ import MainPage from './pages/mainPage'
 import UploadPage from './pages/uploadPage'
 import NotFound from './pages/NotFound'
 import ProjectOverview from './pages/projectOverview'
+import CustomerSupport from './pages/customerSupport'
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: '/studentdocs/upload',
     element: <UploadPage />
+  },
+  {
+    path: 'studentdocs/customer-support',
+    element: <CustomerSupport />
   },
   {
     path: '/studentdocs/project-overview',
