@@ -16,9 +16,9 @@ const Header = () => {
         StudentDocs
       </div>
       <div className="right-part flex gap-4 items-center">
-        <div className="upload border-2 border-white text-white py-1 px-5 transition hover:bg-white  rounded-md hover:text-blue-700 cursor-pointer">
-          <Link to='/studentdocs/upload'>Upload</Link>
-        </div>
+      <Link to='/studentdocs/upload'><div className="upload border-2 border-white text-white py-1 px-5 transition hover:bg-white  rounded-md hover:text-blue-700 cursor-pointer">
+          Upload
+        </div></Link>
         <div>
           <Link to='/studentdocs/customer-support'>
             <div className="text-white text-xl bg-blue-800 hover:text-gray-300 px-3 py-2 rounded-full transition relative group">
