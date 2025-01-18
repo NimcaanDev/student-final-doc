@@ -31,7 +31,7 @@ const MainSection = () => {
   // };
 
   return (
-    <div className="main-section flex-grow">
+    <div className="main-section w-full">
       <div className="info-part flex flex-wrap gap-2 sm:gap-10 flex-col sm:flex-row md:flex-row md:justify-start justify-between">
         <div className="year-part flex gap-2">
           <div className="year-title">Year:</div>
@@ -76,10 +76,11 @@ const MainSection = () => {
       <div className="divider w-full h-[1px] bg-gray-700 mt-3"></div>
 
       <div className="docs-part">
-        <div className="docs mt-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+        <div className="docs mt-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {documents.map((document, index) => (
             <Doc
               key={index}
+              id={document.id}
               fileId={document.fileId}
               fileType={document.format}
               fileName={document.name}

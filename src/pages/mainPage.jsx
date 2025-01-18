@@ -10,7 +10,7 @@ const MainPage = () => {
   return (
     <div className='flex flex-col min-h-screen'>
       <Header />
-      <div className="content flex flex-1 min-h-0 mt-2 gap-3 px-3 md:pr-6 md:px-0 relative">
+      <div className="content flex w-full mt-2 gap-3 px-3 md:pr-6 md:px-0">
         <SideBar />
         <Outlet />
       </div>

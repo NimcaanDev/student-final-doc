@@ -1,6 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Doc = ({
+  id,
   fileId,
   fileType,
   fileName,
@@ -10,11 +12,12 @@ const Doc = ({
   size
 }) => {
   return (
-    <a
-      href={`https://drive.google.com/uc?export=download&id=${fileId}`}
-      download
-    >
-      <div className="doc p-4 shadow-box bg-white hover:bg-gray-200 transition rounded-md flex flex-col gap-3">
+    // <a
+    //   href={`https://drive.google.com/uc?export=download&id=${fileId}`}
+    //   download
+    // >
+    <Link to={`/studentdocs/detail/post/${id}`}>
+      <div className="doc p-4 shadow-md border border-gray-400 bg-white hover:bg-gray-200 hover:border-blue-600 transition rounded-md flex flex-col gap-3">
         <div className="cover-part h-20 mx-auto">
           <img
             src={`/studentdocs/assets/${fileType.toLowerCase()}.png`}
@@ -33,7 +36,8 @@ const Doc = ({
           </div>
         </div>
       </div>
-    </a>
+    </Link>
+    // </a>
   );
 };
 

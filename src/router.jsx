@@ -6,6 +6,7 @@ import NotFound from './pages/NotFound'
 import ProjectOverview from './pages/projectOverview'
 import CustomerSupport from './pages/customerSupport'
 import MainSection from './components/main-section'
+import SinglePost from './pages/SinglePost'
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <MainSection />
+      },
+      {
+        path: 'detail/post/:id',
+        element: <SinglePost />
       }
     ]
   },
