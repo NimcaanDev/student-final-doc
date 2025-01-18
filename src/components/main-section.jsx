@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import documents from "../data/documents";
 import Doc from "./doc";
+import { useSelector } from "react-redux";
 
-const MainSection = ({ selectedFaculty }) => {
+const MainSection = () => {
+  const faculty = useSelector(state => state.faculty.faculty)
   const [selectedYear, setSelectedYear] = useState(
-    selectedFaculty.classes[0].year
+    faculty.classes[0].year
   );
   // const [selectedClasses, setSelectedClasses] = useState(
   //   selectedFaculty.classes[0].classes[0]
@@ -34,7 +36,7 @@ const MainSection = ({ selectedFaculty }) => {
         <div className="year-part flex gap-2">
           <div className="year-title">Year:</div>
           <select className="bg-white border rounded px-3 py-1 text-gray-700 focus:outline-none focus:ring" name="year" id="year" onChange={handleYearChange}>
-            {selectedFaculty.classes.map((classItem, index) => (
+            {faculty.classes.map((classItem, index) => (
               <option value={classItem.year} key={index}>
                 {classItem.year}
               </option>
@@ -44,7 +46,7 @@ const MainSection = ({ selectedFaculty }) => {
         <div className="class-part flex gap-2">
           <div className="class-title">Class:</div>
           <select className="bg-white border rounded px-3 py-1 text-gray-700 focus:outline-none focus:ring" name="class" id="class">
-            {selectedFaculty.classes
+            {faculty.classes
               .filter((classItem) => classItem.year === selectedYear)
               .flatMap((classItem) =>
                 classItem.classes.map((className, index) => (
@@ -58,7 +60,7 @@ const MainSection = ({ selectedFaculty }) => {
         <div className="course-part flex gap-2">
           <div className="course-title">Course:</div>
           <select className="bg-white border rounded px-3 py-1 text-gray-700 focus:outline-none focus:ring" name="course" id="course">
-            {selectedFaculty.classes
+            {faculty.classes
               .filter((classItem) => classItem.year === selectedYear)
               .flatMap((classItem) =>
                 classItem.courses.map((courseName, index) => (

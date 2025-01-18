@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { changeFaculty } from "../../redux/slices/facultySlice";
+import faculties from "../data/faculties";
 
-const SideBar = ({ faculties, setSelectedFaculty }) => {
+const SideBar = () => {
+  // const faculties = useSelector(state => state.faculty.faculty)
+  console.log(faculties)
+  const dispatch = useDispatch()
   const [activeIndex, setActiveIndex] = useState(0);
   const isClosed = useSelector(state => state.sideBar.isClosed)
   const sideBarClickHandler = (index) => {
     setActiveIndex(index);
-    setSelectedFaculty(faculties[index]);
+    dispatch(changeFaculty(faculties[index]));
   };
 
   return (

@@ -5,11 +5,18 @@ import UploadPage from './pages/uploadPage'
 import NotFound from './pages/NotFound'
 import ProjectOverview from './pages/projectOverview'
 import CustomerSupport from './pages/customerSupport'
+import MainSection from './components/main-section'
 
 const router = createBrowserRouter([
   {
     path: '/studentdocs',
-    element: <MainPage />
+    element: <MainPage />,
+    children: [
+      {
+        index: true,
+        element: <MainSection />
+      }
+    ]
   },
   {
     path: '/studentdocs/upload',
