@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import documents from "../data/documents";
 import Doc from "./doc";
 import { useDispatch, useSelector } from "react-redux";
 import { getDocuments } from "../../redux/slices/documentSlice";
+import Loading from "./loading";
+import ErrorAlert from "./errorAlert";
 
 const MainSection = () => {
   const faculty = useSelector(state => state.faculty.faculty)
@@ -10,11 +11,15 @@ const MainSection = () => {
     faculty.classes[0].year
   );
 
+  const documentState = useSelector(state => state.document)
+
+
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getDocuments())
-  }, [])
+  }, [dispatch])
+
   // const [selectedClasses, setSelectedClasses] = useState(
   //   selectedFaculty.classes[0].classes[0]
   // );
@@ -82,22 +87,31 @@ const MainSection = () => {
 
       <div className="divider w-full h-[1px] bg-gray-700 mt-3"></div>
 
-      <div className="docs-part">
-        <div className="docs mt-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-          {documents.map((document, index) => (
-            <Doc
-              key={index}
-              id={document.id}
-              fileId={document.fileId}
-              fileType={document.format}
-              fileName={document.name}
-              courseName={document.course}
-              shift={document.shift}
-              classIdentify={document.class}
-              size={document.size}
-            />
-          ))}
-        </div>
+      <div className="docs-part h-full">
+
+        {documentState.error ? (
+          <ErrorAlert message={documentState.error} />
+        ) : (
+          documentState.isLoading ? (
+            <Loading />
+          ) : documentState.data && documentState.data.documents ? (
+            <div className="docs mt-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              {documentState.data.documents.map((document) => (
+                <Doc
+                  key={document.id}
+                  id={document.id}
+                  fileType={document.file_type}
+                  fileName={document.name}
+                  courseName={document.course?.name || "Unknown"}
+                  shift={"morning"}
+                  size={document.size}
+                />
+              ))}
+            </div>
+          ) : (
+            <p>No documents found</p>
+          )
+        )}
       </div>
     </div>
   );
