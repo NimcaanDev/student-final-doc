@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import documents from "../data/documents";
 import Doc from "./doc";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getDocuments } from "../../redux/slices/documentSlice";
 
 const MainSection = () => {
   const faculty = useSelector(state => state.faculty.faculty)
   const [selectedYear, setSelectedYear] = useState(
     faculty.classes[0].year
   );
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getDocuments())
+  }, [])
   // const [selectedClasses, setSelectedClasses] = useState(
   //   selectedFaculty.classes[0].classes[0]
   // );
