@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { changeFaculty } from "../../redux/slices/facultySlice";
+import { changeFaculty, getAllFaculties, getSingleFaculty } from "../../redux/slices/facultySlice";
 import faculties from "../data/faculties";
 
 const SideBar = () => {
@@ -9,25 +9,16 @@ const SideBar = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const isClosed = useSelector(state => state.sideBar.isClosed)
   const sidebarRef = useRef(null)
-  const sideBarClickHandler = (index) => {
+
+  const facultyState = useSelector(state => state.faculty)
+  const sideBarClickHandler = (index, id) => {
     setActiveIndex(index);
-    dispatch(changeFaculty(faculties[index]));
+    dispatch(getSingleFaculty(id));
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-        if (!isClosed) {
-          dispatch(toggleSideBar()); // Close sidebar if it's open
-        }
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, [isClosed, dispatch]);
+    dispatch(getAllFaculties())
+  }, [])
 
   return (
 
@@ -38,14 +29,14 @@ const SideBar = () => {
       <div className="side-bar-upper-part">
         <div className="side-bar-title text-blue-700 text-xl font-semibold">Faculty</div>
         <ul className="text-gray-800 flex flex-col gap-1 mt-2">
-          {faculties.map((faculty, index) => (
+          {facultyState.data?.faculties?.map((faculty, index) => (
             <li
               key={index}
               className={`cursor-pointer transition py-1 px-4 rounded-md ${activeIndex != index
                 ? " hover:text-blue-700 hover:bg-gray-200"
                 : "text-blue-700 bg-gray-200"
                 }`}
-              onClick={() => sideBarClickHandler(index)}
+              onClick={() => sideBarClickHandler(index, faculty.id)}
             >
               {faculty.name}
             </li>

@@ -6,16 +6,16 @@ import Loading from "./loading";
 import ErrorAlert from "./errorAlert";
 
 const MainSection = () => {
-  const faculty = useSelector(state => state.faculty.faculty)
-  const [selectedYear, setSelectedYear] = useState(
-    faculty.classes[0].year
-  );
-
   const documentState = useSelector(state => state.document)
+  const facultyState = useSelector(state => state.faculty)
+
+  const [selectedYear, setSelectedYear] = useState(
+    facultyState?.selectedFaculty?.classes?.[0]?.year
+  );
 
 
   const dispatch = useDispatch()
-
+  console.log(facultyState.selectedFaculty)
   useEffect(() => {
     dispatch(getDocuments())
   }, [dispatch])
@@ -26,7 +26,6 @@ const MainSection = () => {
   // const [selectedCourse, setSelectedCourse] = useState(
   //   selectedFaculty.classes[0].courses[0]
   // );
-
   const handleYearChange = (e) => {
     const year = e.target.value;
     setSelectedYear(year);
@@ -48,7 +47,7 @@ const MainSection = () => {
         <div className="year-part flex gap-2">
           <div className="year-title">Year:</div>
           <select className="bg-white border rounded px-3 py-1 text-gray-700 focus:outline-none focus:ring" name="year" id="year" onChange={handleYearChange}>
-            {faculty.classes.map((classItem, index) => (
+            {facultyState?.selectedFaculty?.classes?.map((classItem, index) => (
               <option value={classItem.year} key={index}>
                 {classItem.year}
               </option>
@@ -58,29 +57,21 @@ const MainSection = () => {
         <div className="class-part flex gap-2">
           <div className="class-title">Class:</div>
           <select className="bg-white border rounded px-3 py-1 text-gray-700 focus:outline-none focus:ring" name="class" id="class">
-            {faculty.classes
-              .filter((classItem) => classItem.year === selectedYear)
-              .flatMap((classItem) =>
-                classItem.classes.map((className, index) => (
-                  <option value={className} key={index}>
-                    {className}
-                  </option>
-                ))
-              )}
+            {facultyState?.selectedFaculty?.classes
+              ?.find((classItem) => classItem.year === selectedYear)
+              ?.classes.map((className, index) => (
+                <option value={className} key={index}>{className}</option>
+              ))}
           </select>
         </div>
         <div className="course-part flex gap-2">
           <div className="course-title">Course:</div>
           <select className="bg-white border rounded px-3 py-1 text-gray-700 focus:outline-none focus:ring" name="course" id="course">
-            {faculty.classes
-              .filter((classItem) => classItem.year === selectedYear)
-              .flatMap((classItem) =>
-                classItem.courses.map((courseName, index) => (
-                  <option value={courseName} key={index}>
-                    {courseName}
-                  </option>
-                ))
-              )}
+            {facultyState?.selectedFaculty?.classes
+              ?.find((classItem) => classItem.year === selectedYear)
+              ?.courses.map((courseName, index) => (
+                <option value={courseName} key={index}>{courseName}</option>
+              ))}
           </select>
         </div>
       </div>
