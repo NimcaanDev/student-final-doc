@@ -3,7 +3,6 @@ import Back from '../components/back';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSingleDocument } from '../../redux/slices/documentSlice';
-import { Badge, Code, DataList, Flex } from '@radix-ui/themes';
 import Loading from '../components/loading';
 
 const SinglePost = () => {
@@ -40,54 +39,40 @@ const SinglePost = () => {
                             />
                         </div>
                         <div className='flex-grow'>
-                            {/* <h1 className='text-3xl font-semibold'>{selectedDocument.name}</h1>
-                        <p className='text-gray-600 mb-4'>{selectedDocument.course?.name || "Unknown Course"}</p>
-                        <p className='font-semibold'><span className='font-normal'>Teacher:</span> {selectedDocument.user?.username || "Unknown"}</p>
-                        <div className='font-semibold'><span className='font-normal'>Classes:</span> {selectedDocument.classes?.map(cls => cls.class).join(', ') || "No Classes"}</div>
-                        <p className='font-semibold'><span className='font-normal'>Format:</span> {selectedDocument.file_type}</p>
-                        <p className='font-semibold'><span className='font-normal'>Size:</span> {selectedDocument.size} KB</p> */}
-                            <DataList.Root>
-                                <DataList.Item>
-                                    <DataList.Label minWidth="88px">Name</DataList.Label>
-                                    <DataList.Value>{selectedDocument.name}</DataList.Value>
-                                </DataList.Item>
-                                <DataList.Item>
-                                    <DataList.Label minWidth="88px">Teacher</DataList.Label>
-                                    <DataList.Value>{selectedDocument.user.username}</DataList.Value>
-                                </DataList.Item>
-                                <DataList.Item>
-                                    <DataList.Label minWidth="88px">Course</DataList.Label>
-                                    <DataList.Value>{selectedDocument.course.name}</DataList.Value>
-                                </DataList.Item>
-                                <DataList.Item>
-                                    <DataList.Label minWidth="88px">Classes</DataList.Label>
-                                    <DataList.Value>
+                            <div className='flex flex-col gap-2 max-w-[200px]'>
+                                <div className='flex gap-5'>
+                                    <div className='text-gray-800'>Name:</div>
+                                    <div>{selectedDocument.name}</div>
+                                </div>
+                                <div className='flex gap-5'>
+                                    <div className='text-gray-800'>Teacher:</div>
+                                    <div>{selectedDocument.user.username}</div>
+                                </div>
+                                <div className='flex gap-5'>
+                                    <div className='text-gray-800'>Course:</div>
+                                    <div>{selectedDocument.course.name}</div>
+                                </div>
+                                <div className='flex gap-5'>
+                                    <div className='text-gray-800'>Classes:</div>
+                                    <div>
                                         {
                                             selectedDocument.classes.map(cls => cls.class.name).join(', ') || "No Classes"
                                         }
-                                    </DataList.Value>
-                                </DataList.Item>
-                                <DataList.Item align="center">
-                                    <DataList.Label minWidth="88px">File type</DataList.Label>
-                                    <DataList.Value>
-                                        <Badge color="jade" variant="soft" radius="full">
+                                    </div>
+                                </div>
+                                <div className='flex gap-5'>
+                                    <div className='text-gray-800'>File type:</div>
+                                    <div>
+                                        <div>
                                             {selectedDocument.file_type}
-                                        </Badge>
-                                    </DataList.Value>
-                                </DataList.Item>
-                                <DataList.Item>
-                                    <DataList.Label minWidth="88px">Link</DataList.Label>
-                                    <DataList.Value>
-                                        <Flex align="center" gap="2">
-                                            <Code variant="ghost">{window.location.href}</Code>
-                                        </Flex>
-                                    </DataList.Value>
-                                </DataList.Item>
-                                <DataList.Item>
-                                    <DataList.Label minWidth="88px">Size</DataList.Label>
-                                    <DataList.Value>{selectedDocument.size}KB</DataList.Value>
-                                </DataList.Item>
-                            </DataList.Root>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='flex gap-5'>
+                                    <div className='text-gray-800'>Size:</div>
+                                    <div>{selectedDocument.size}KB</div>
+                                </div>
+                            </div>
 
                             <div>
                                 {selectedDocument?.link && (
@@ -106,7 +91,7 @@ const SinglePost = () => {
                     <p className="text-center text-gray-600 mt-4">Document not found.</p>
                 )
             )}
-        </div>
+        </div >
     );
 };
 
