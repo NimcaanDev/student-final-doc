@@ -1,9 +1,10 @@
+import { Alert } from '@mui/material'
 import React from 'react'
 
 const ErrorAlert = ({ message }) => {
     return (
-        <div className='my-4 bg-red-300 border border-red-600 text-red-600 px-3'>
-            {message}
+        <div className='my-4'>
+            <Alert severity="error">{message}</Alert>
         </div >
     )
 }
