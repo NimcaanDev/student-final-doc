@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import Loading from "../../components/loading";
 
 
-const SingupPage = () => {
+const LoginPage = () => {
     const loginState = useSelector(state => state.user)
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -49,7 +49,7 @@ const SingupPage = () => {
             toast.success("Succesfully logged in", { id: toastId })
 
             localStorage.setItem("userData", JSON.stringify(loginState.data))
-            navigate('/studentdocs');
+            navigate('/studentdocs/dashboard');
         }
     }, [loginState.error, loginState.data])
 
@@ -84,4 +84,4 @@ const SingupPage = () => {
     );
 };
 
-export default SingupPage;
+export default LoginPage;

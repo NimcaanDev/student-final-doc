@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import faculties from '../data/faculties';
 import Back from '../components/back';
 
@@ -13,6 +13,14 @@ const UploadPage = () => {
   const availableYears = currentFaculty?.classes.map(classGroup => classGroup.year) || [];
   const availableClasses =
     currentFaculty?.classes.find(classGroup => classGroup.year === selectedYear)?.classes || [];
+
+  const userData = JSON.parse(localStorage.getItem('userData'))
+
+  useEffect(() => {
+    if (!userData) {
+      navigate('studentdocs/auth/login')
+    }
+  }, [userData])
 
   const handleFileChange = (e) => {
     console.log(e.target)
@@ -32,7 +40,7 @@ const UploadPage = () => {
 
   return (
     <div className='w-[80%] md:w-[500px] mx-auto my-10 flex flex-col gap-6'>
-      <Back />
+      <Back to={'/studentdocs/dashboard'} />
       <div className='info-section bg-white shadow-md rounded-lg flex flex-col'>
         <div className="top-part bg-blue-700 text-white font-semibold font-konit text-center text-2xl py-3 rounded-tl-lg rounded-tr-lg">Upload</div>
         <form action="" className='grid grid-cols-1 px-4 py-4'>

@@ -7,7 +7,8 @@ import ProjectOverview from './pages/projectOverview'
 import CustomerSupport from './pages/customerSupport'
 import MainSection from './components/main-section'
 import SinglePost from './pages/SinglePost'
-import SingupPage from './pages/auth/singupPage'
+import LoginPage from './pages/auth/loginPage'
+import DashboardLayout from './pages/dashboard/dashboardLayout'
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,11 @@ const router = createBrowserRouter([
     ]
   },
   {
+    path: '/studentdocs/dashboard',
+    element: <DashboardLayout />,
+    // children: []
+  },
+  {
     path: '/studentdocs/upload',
     element: <UploadPage />
   },
@@ -38,7 +44,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/studentdocs/auth/login',
-    element: <SingupPage />
+    element: <LoginPage />
   },
   {
     path: '*',

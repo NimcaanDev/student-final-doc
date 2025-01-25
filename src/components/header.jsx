@@ -18,8 +18,8 @@ const Header = () => {
       </div>
       <div className="right-part flex gap-4 items-center">
         {userState.data.isSuccess ? (
-          <Link to='/studentdocs/upload'><div className="upload border-2 border-white text-white py-1 px-5 transition hover:bg-white  rounded-md hover:text-blue-700 cursor-pointer">
-            Upload
+          <Link to='/studentdocs/dashboard'><div className="upload border-2 border-white text-white py-1 px-5 transition hover:bg-white  rounded-md hover:text-blue-700 cursor-pointer">
+            Dashboard
           </div></Link>
         ) : (null)}
         <div>
