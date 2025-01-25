@@ -7,6 +7,7 @@ import ProjectOverview from './pages/projectOverview'
 import CustomerSupport from './pages/customerSupport'
 import MainSection from './components/main-section'
 import SinglePost from './pages/SinglePost'
+import SingupPage from './pages/auth/singupPage'
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: '/studentdocs/project-overview',
     element: <ProjectOverview />
+  },
+  {
+    path: '/studentdocs/auth/login',
+    element: <SingupPage />
   },
   {
     path: '*',

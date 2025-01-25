@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleSideBar } from "../../redux/slices/sideBarSlice";
 import { Link } from "react-router-dom";
 
 const Header = () => {
   const dispatch = useDispatch()
+  const userState = useSelector(state => state.user)
 
   const changeSideBarState = () => {
     dispatch(toggleSideBar())
@@ -16,9 +17,11 @@ const Header = () => {
         StudentDocs
       </div>
       <div className="right-part flex gap-4 items-center">
-      <Link to='/studentdocs/upload'><div className="upload border-2 border-white text-white py-1 px-5 transition hover:bg-white  rounded-md hover:text-blue-700 cursor-pointer">
-          Upload
-        </div></Link>
+        {userState.data.isSuccess ? (
+          <Link to='/studentdocs/upload'><div className="upload border-2 border-white text-white py-1 px-5 transition hover:bg-white  rounded-md hover:text-blue-700 cursor-pointer">
+            Upload
+          </div></Link>
+        ) : (null)}
         <div>
           <Link to='/studentdocs/customer-support'>
             <div className="text-white text-xl bg-blue-800 hover:text-gray-300 px-3 py-2 rounded-full transition relative group">
