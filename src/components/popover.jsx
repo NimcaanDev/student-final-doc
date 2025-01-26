@@ -15,12 +15,6 @@ const PopoverDemo = () => {
         navigate('/studentdocs')
     }
 
-    useEffect(() => {
-        if (!userData) {
-            navigate('studentdocs/auth/login')
-        }
-    }, [userData])
-
     return (
         <Popover.Root>
             <Popover.Trigger asChild>

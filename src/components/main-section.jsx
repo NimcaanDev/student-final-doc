@@ -78,13 +78,15 @@ const MainSection = () => {
 
       <div className="divider w-full h-[1px] bg-gray-700 mt-3"></div>
 
-      <div className="docs-part h-full">
+      <div className="docs-part">
 
         {documentState.error ? (
           <ErrorAlert message={documentState.error} />
         ) : (
           documentState.isLoading ? (
-            <Loading />
+            <div className="mt-6">
+              <Loading />
+            </div>
           ) : documentState.data && documentState.data.documents ? (
             <div className="docs mt-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {documentState.data.documents.map((document) => (
