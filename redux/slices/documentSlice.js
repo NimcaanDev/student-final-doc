@@ -9,6 +9,9 @@ const initialState = {
     singleIsLoading: false,
     singleError: '',
     singleData: {},
+    uploadLoading: false,
+    uploadError: '',
+    uploadedData: {},
 }
 
 // Fetch all documents
@@ -33,6 +36,20 @@ export const getSingleDocument = createAsyncThunk(
                 id,
             })
             return result.data
+        } catch (error) {
+            return rejectWithValue(error.message || 'Something went wrong!')
+        }
+    }
+)
+
+// upload data
+export const uploadDocument = createAsyncThunk(
+    'upload/document',
+    async (data, { rejectWithValue }) => {
+        try {
+            const res = await axios.post(`${baseUrl}documents/upload`, data)
+
+            return res.data
         } catch (error) {
             return rejectWithValue(error.message || 'Something went wrong!')
         }
@@ -76,6 +93,23 @@ export const documentSlice = createSlice({
                 state.singleIsLoading = false
                 state.singleError = ''
                 state.singleData = action.payload
+            })
+
+            // upload document
+            .addCase(uploadDocument.pending, (state) => {
+                state.uploadLoading = true
+                state.uploadError = ''
+                state.uploadedData = {}
+            })
+            .addCase(uploadDocument.rejected, (state, action) => {
+                state.uploadLoading = false
+                state.uploadError = action.payload
+                state.uploadedData = {}
+            })
+            .addCase(uploadDocument.fulfilled, (state, action) => {
+                state.uploadLoading = false
+                state.uploadError = ''
+                state.uploadedData = action.payload
             })
     },
 })
