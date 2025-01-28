@@ -6,17 +6,14 @@ import { loginFn } from "../../../redux/slices/auth/loginSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorAlert from "../../components/errorAlert";
-import toast from "react-hot-toast";
 import Loading from "../../components/loading";
-
+import { toast, Bounce, ToastContainer } from "react-toastify";
 
 const LoginPage = () => {
     const loginState = useSelector(state => state.user)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const toastId = 'zimo'
-
-    console.log(loginState.loading)
+    const successToastId = 'success-toast'
 
     const formik = useFormik({
         initialValues: {
@@ -24,13 +21,10 @@ const LoginPage = () => {
             password: ''
         },
         onSubmit(values) {
-            toast.success('Successfully toasted!')
             const data = {
                 email: values.email,
                 password: values.password
             }
-
-            toast.loading("Logging in...", { id: toastId })
             dispatch(loginFn(data))
         },
 
@@ -41,12 +35,34 @@ const LoginPage = () => {
     })
 
     useEffect(() => {
-        if (loginState.error) {
-            toast.error(loginState.error, { id: toastId })
+        if (loginState?.error) {
+            toast.error(loginState.error, {
+                toastId: successToastId,
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
         }
 
-        if (loginState.data.isSuccess) {
-            toast.success("Succesfully logged in", { id: toastId })
+        if (loginState?.data?.isSuccess) {
+            toast.success('Loggin in successfully', {
+                toastId: successToastId,
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
 
             localStorage.setItem("userData", JSON.stringify(loginState.data))
             navigate('/studentdocs/dashboard');
@@ -80,6 +96,7 @@ const LoginPage = () => {
                     </button>
                 </form>
             </div>
+            <ToastContainer />
         </div >
     );
 };
