@@ -2,94 +2,136 @@ import React, { useEffect, useState } from 'react';
 import faculties from '../data/faculties';
 import Back from '../components/back';
 import { useDispatch, useSelector } from 'react-redux';
-import { Formik, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import * as yup from 'yup'
-import { uploadDocument } from '../../redux/slices/documentSlice';
 import { useNavigate } from 'react-router-dom';
 import ErrorAlert from '../components/errorAlert';
 import Loading from '../components/loading';
+import { Bounce, toast } from 'react-toastify';
+import { uploadDocumentFn } from '../../redux/slices/documentSlices/uploadDocumentSlice';
+import { getAllFaculties } from '../../redux/slices/facultySlice';
+import { getAllCourses } from '../../redux/slices/courseSlice';
 
 const UploadPage = () => {
-  const uploadState = useSelector(state => state.document)
-  const [docName, setDocsName] = useState('')
+  const uploadState = useSelector(state => state.uploadDocument);
+  const facultiesData = useSelector(state => state.faculty.data);
+  const coursesData = useSelector(state => state.course.data);
   const [selectedFaculty, setSelectedFaculty] = useState(faculties[0]?.name || "");
   const [selectedYear, setSelectedYear] = useState("fresh");
   const [selectedClass, setSelectedClass] = useState([]);
-  const [selectedFileName, setSelectedFileName] = useState('Click to Upload File')
+  const [selectedFileName, setSelectedFileName] = useState('Click to Upload File');
+  const successToastId = 'success-toast';
 
-  const dispatch = useDispatch()
-
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const currentFaculty = faculties.find(faculty => faculty.name === selectedFaculty);
   const availableYears = currentFaculty?.classes.map(classGroup => classGroup.year) || [];
   const availableClasses =
     currentFaculty?.classes.find(classGroup => classGroup.year === selectedYear)?.classes || [];
 
-  const userData = JSON.parse(localStorage.getItem('userData'))
+  const userData = JSON.parse(localStorage.getItem('userData'));
 
   useEffect(() => {
     if (!userData) {
-      navigate('studentdocs/auth/login')
+      navigate('studentdocs/auth/login');
     }
-  }, [userData])
+  }, [userData]);
+
+  useEffect(() => {
+    dispatch(getAllFaculties());
+    dispatch(getAllCourses());
+
+    if(facultiesData.isLoading || coursesData.isLoading) {
+      return <div className='w-full h-full flex justify-center items-center'>
+        <Loading />
+      </div>
+    }
+  }, [])
 
   const handleFileChange = (e) => {
     const file = e.currentTarget.files[0];
-
     if (file) {
       setSelectedFileName(file.name);
       formik.setFieldValue('doc_file', file);
     } else {
-      setSelectedFileName('Click to Upload File')
+      setSelectedFileName('Click to Upload File');
     }
-  }
+  };
 
   const formik = useFormik({
     initialValues: {
       doc_name: '',
       doc_desc: '',
-      doc_faculty: faculties[0]?.name,
+      doc_faculty: facultiesData.faculties?.[0].name,
+      doc_course: coursesData.courses?.[0].name,
       doc_year: 'fresh',
       doc_class: [],
-      doc_file: null
+      doc_file: null,
     },
-
     onSubmit(values) {
       const data = {
         doc_name: values.doc_name,
         doc_desc: values.doc_desc,
         doc_faculty: values.doc_faculty,
+        doc_course: values.doc_course,
         doc_year: values.doc_year,
         doc_class: values.doc_class,
-        doc_file: values.doc_file
-      }
-      console.log(data)
-
-      dispatch(uploadDocument(data))
+        doc_file: values.doc_file,
+      };
+      console.log(facultiesData.faculties?.[0]?.name)
+      console.log(data);
+      dispatch(uploadDocumentFn(data));
     },
-
     validationSchema: yup.object({
       doc_name: yup.string().required("Please enter the name"),
       doc_desc: yup.string(),
-      doc_file: yup.mixed().required('Please select the file')
-    })
-  })
+      doc_file: yup.mixed().required('Please select the file'),
+    }),
+  });
 
-  const uploadHandler = () => {
-    console.log(`name: ${docName}, faculty: ${selectedFaculty}, year: ${selectedYear}, classes: ${selectedClass}, file: ${selectedFileName}`)
-  }
+  useEffect(() => {
+    if (uploadState?.uploadError) {
+      toast.error(uploadState.uploadError, {
+        toastId: successToastId,
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+
+    if (uploadState?.uploadData?.isSuccess) {
+      toast.success("Uploaded Successfully", {
+        toastId: successToastId,
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+  }, [uploadState]);
 
   return (
     <div className='w-[80%] md:w-[500px] mx-auto my-10 flex flex-col gap-6'>
       <Back to={'/studentdocs/dashboard'} />
-      <form action="" onSubmit={formik.handleSubmit} className='rounded-lg flex flex-col gap-4' method="post">
-        <div className='info-section bg-white rounded-md shadow-md '>
+      <form onSubmit={formik.handleSubmit} className='rounded-lg flex flex-col gap-4'>
+        <div className='info-section bg-white rounded-md shadow-md'>
           <div className="top-part bg-blue-700 text-white font-semibold font-konit text-center text-2xl py-3 rounded-tl-lg rounded-tr-lg">Upload</div>
 
           <div className='px-4 py-4 grid grid-cols-1'>
-            {uploadState.uploadError && uploadState.uploadError && (
-              <ErrorAlert message={uploadState.uploadError && uploadState.uploadError} />
+            {uploadState.uploadError && (
+              <ErrorAlert message={uploadState.uploadError} />
             )}
 
             {/* Document Name */}
@@ -108,17 +150,20 @@ const UploadPage = () => {
 
             {/* Faculty Selection */}
             <label htmlFor="doc-faculty" className='mt-2'>Faculty<span className='text-red-500 font-bold text-lg'>*</span></label>
-            <select className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' name='doc_faculty' value={formik.values.doc_faculty} onChange={(e) => {
-              const newFaculty = e.target.value;
-              setSelectedFaculty(newFaculty);
-              const newFacultyData = faculties.find(faculty => faculty.name === newFaculty);
-              const newYears = newFacultyData?.classes.map(classGroup => classGroup.year) || [];
-              setSelectedYear(newYears.includes("fresh") ? "fresh" : newYears[0] || "");
-              setSelectedClass([]);
-              formik.handleChange()
-            }} onBlur={formik.handleBlur}>
-              {faculties.map((faculty, index) => (
+            <select className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' name='doc_faculty' value={formik.values.doc_faculty} onChange={formik.handleChange} onBlur={formik.handleBlur}>
+              {facultiesData.faculties?.map((faculty, index) => (
                 <option key={index} value={faculty.name}>{faculty.name}</option>
+              ))}
+            </select>
+            <p className="text-sm font-bold text-red-500">
+              {formik.touched.doc_faculty && formik.errors.doc_faculty}
+            </p>
+
+            {/* Course Selection */}
+            <label htmlFor="doc-course" className='mt-2'>Course<span className='text-red-500 font-bold text-lg'>*</span></label>
+            <select className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' name='doc_faculty' value={formik.values.doc_course} onChange={formik.handleChange} onBlur={formik.handleBlur}>
+              {coursesData.courses?.map((course, index) => (
+                <option key={index} value={course.name}>{course.name}</option>
               ))}
             </select>
             <p className="text-sm font-bold text-red-500">
@@ -130,7 +175,7 @@ const UploadPage = () => {
             <select className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' name='doc_year' value={formik.values.doc_year} onChange={(e) => {
               setSelectedYear(e.target.value);
               setSelectedClass([]);
-              formik.handleChange()
+              formik.handleChange();
             }} onBlur={formik.handleBlur} disabled={availableYears.length === 0}>
               {availableYears.map((year, index) => (
                 <option key={index} value={year}>{year}</option>
@@ -150,14 +195,14 @@ const UploadPage = () => {
                       name='doc_class'
                       type="checkbox"
                       className='w-4 h-4 mr-1 border-gray-300 rounded-sm bg-white checked:bg-blue-500 checked:border-blue-500 focus:outline-none transition duration-150 ease-in-out'
-                      value={formik.values.doc_class.includes(className)}
-                      checked={selectedClass.includes(className)}
+                      value={className}
+                      checked={formik.values.doc_class.includes(className)}
                       onChange={(e) => {
                         const checked = e.target.checked;
-                        setSelectedClass(prev =>
-                          checked ? [...prev, className] : prev.filter(c => c !== className)
-                        );
-                        formik.setFieldValue('doc_class', selectedClass)
+                        const newClasses = checked
+                          ? [...formik.values.doc_class, className]
+                          : formik.values.doc_class.filter(c => c !== className);
+                        formik.setFieldValue('doc_class', newClasses);
                       }}
                     />
                     {className}
@@ -176,9 +221,11 @@ const UploadPage = () => {
             📁 {selectedFileName}
           </label>
         </div>
-        <button className="bg-blue-600 hover:bg-blue-800 transition text-white p-2 rounded" onClick={uploadHandler}>{uploadState.uploadLoading ? <Loading /> : "Upload"}</button>
+        <button type="submit" disabled={uploadState.uploadLoading || !formik.isValid} className="disabled:bg-gray-400 bg-blue-600 hover:bg-blue-800 transition text-white p-2 rounded">
+          {uploadState.uploadLoading ? <Loading /> : "Upload"}
+        </button>
       </form>
-    </div >
+    </div>
   );
 };
 

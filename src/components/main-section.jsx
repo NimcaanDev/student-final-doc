@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Doc from "./doc";
 import { useDispatch, useSelector } from "react-redux";
-import { getDocuments } from "../../redux/slices/documentSlice";
+import { getDocuments } from "../../redux/slices/documentSlices/documentSlice";
 import Loading from "./loading";
 import ErrorAlert from "./errorAlert";
 

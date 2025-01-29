@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import Back from '../components/back';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSingleDocument } from '../../redux/slices/documentSlice';
+import { getSingleDocument } from '../../redux/slices/documentSlices/getSingleDocumentSlice';
 import Loading from '../components/loading';
 
 const SinglePost = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
 
-    const singleDocumentState = useSelector(state => state.document);
+    const singleDocumentState = useSelector(state => state.getSingleDocument);
     const selectedDocument = singleDocumentState.singleData?.selectedDocument;
 
     const downloadUrl = `${selectedDocument?.link.replace('/upload/', '/upload/fl_attachment/')}`;
