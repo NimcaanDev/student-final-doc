@@ -45,9 +45,16 @@ export const getSingleDocument = createAsyncThunk(
 // upload data
 export const uploadDocument = createAsyncThunk(
     'upload/document',
-    async (data, { rejectWithValue }) => {
+    async (data, { rejectWithValue, getState }) => {
+        const stateData = getState()
+        const { token } = stateData?.loginSlice?.data
         try {
-            const res = await axios.post(`${baseUrl}documents/upload`, data)
+            const res = await axios.post(`${baseUrl}documents/upload`, data, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
 
             return res.data
         } catch (error) {

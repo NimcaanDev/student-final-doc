@@ -9,6 +9,7 @@ import MainSection from './components/main-section'
 import SinglePost from './pages/SinglePost'
 import LoginPage from './pages/auth/loginPage'
 import DashboardLayout from './pages/dashboard/dashboardLayout'
+import UploadForm from './components/testform'
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
         element: <SinglePost />
       }
     ]
+  },
+  {
+    path: "/studentdocs/test",
+    element: <UploadForm />
   },
   {
     path: '/studentdocs/dashboard',

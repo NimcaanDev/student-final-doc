@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import faculties from '../data/faculties';
 import Back from '../components/back';
 import { useDispatch, useSelector } from 'react-redux';
-import { useFormik } from 'formik';
+import { Formik, useFormik } from 'formik';
 import * as yup from 'yup'
 import { uploadDocument } from '../../redux/slices/documentSlice';
 import { useNavigate } from 'react-router-dom';
+import ErrorAlert from '../components/errorAlert';
+import Loading from '../components/loading';
 
 const UploadPage = () => {
   const uploadState = useSelector(state => state.document)
@@ -33,12 +35,11 @@ const UploadPage = () => {
   }, [userData])
 
   const handleFileChange = (e) => {
-    console.log(e.target)
-    const files = e.target.files;
+    const file = e.currentTarget.files[0];
 
-    if (files && files.length > 0) {
-      setSelectedFileName('Uploading...')
-      setSelectedFileName(files[0].name)
+    if (file) {
+      setSelectedFileName(file.name);
+      formik.setFieldValue('doc_file', file);
     } else {
       setSelectedFileName('Click to Upload File')
     }
@@ -48,10 +49,10 @@ const UploadPage = () => {
     initialValues: {
       doc_name: '',
       doc_desc: '',
-      doc_faculty: '',
-      doc_year: '',
+      doc_faculty: faculties[0]?.name,
+      doc_year: 'fresh',
       doc_class: [],
-      doc_file: ''
+      doc_file: null
     },
 
     onSubmit(values) {
@@ -71,9 +72,6 @@ const UploadPage = () => {
     validationSchema: yup.object({
       doc_name: yup.string().required("Please enter the name"),
       doc_desc: yup.string(),
-      doc_faculty: yup.string().required('Please select the faculty'),
-      doc_year: yup.string().required("Please select the year"),
-      doc_class: yup.array().of(yup.string()).required("Please check the classes"),
       doc_file: yup.mixed().required('Please select the file')
     })
   })
@@ -85,15 +83,13 @@ const UploadPage = () => {
   return (
     <div className='w-[80%] md:w-[500px] mx-auto my-10 flex flex-col gap-6'>
       <Back to={'/studentdocs/dashboard'} />
-      <form action="" onSubmit={formik.handleSubmit} className='rounded-lg flex flex-col gap-4' method="post" enctype="multipart/form-data">
+      <form action="" onSubmit={formik.handleSubmit} className='rounded-lg flex flex-col gap-4' method="post">
         <div className='info-section bg-white rounded-md shadow-md '>
           <div className="top-part bg-blue-700 text-white font-semibold font-konit text-center text-2xl py-3 rounded-tl-lg rounded-tr-lg">Upload</div>
 
           <div className='px-4 py-4 grid grid-cols-1'>
             {uploadState.uploadError && uploadState.uploadError && (
-              <div className="px-4">
-                <ErrorAlert message={uploadState.uploadError && uploadState.uploadError} />
-              </div>
+              <ErrorAlert message={uploadState.uploadError && uploadState.uploadError} />
             )}
 
             {/* Document Name */}
@@ -112,7 +108,7 @@ const UploadPage = () => {
 
             {/* Faculty Selection */}
             <label htmlFor="doc-faculty" className='mt-2'>Faculty<span className='text-red-500 font-bold text-lg'>*</span></label>
-            <select className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' name='doc_faculty' value={selectedFaculty} onChange={(e) => {
+            <select className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' name='doc_faculty' value={formik.values.doc_faculty} onChange={(e) => {
               const newFaculty = e.target.value;
               setSelectedFaculty(newFaculty);
               const newFacultyData = faculties.find(faculty => faculty.name === newFaculty);
@@ -131,7 +127,7 @@ const UploadPage = () => {
 
             {/* Year Selection */}
             <label htmlFor="doc-year" className='mt-2'>Year<span className='text-red-500 font-bold text-lg'>*</span></label>
-            <select className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' name='doc_year' value={selectedYear} onChange={(e) => {
+            <select className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' name='doc_year' value={formik.values.doc_year} onChange={(e) => {
               setSelectedYear(e.target.value);
               setSelectedClass([]);
               formik.handleChange()
@@ -154,13 +150,14 @@ const UploadPage = () => {
                       name='doc_class'
                       type="checkbox"
                       className='w-4 h-4 mr-1 border-gray-300 rounded-sm bg-white checked:bg-blue-500 checked:border-blue-500 focus:outline-none transition duration-150 ease-in-out'
-                      value={className}
+                      value={formik.values.doc_class.includes(className)}
                       checked={selectedClass.includes(className)}
                       onChange={(e) => {
                         const checked = e.target.checked;
                         setSelectedClass(prev =>
                           checked ? [...prev, className] : prev.filter(c => c !== className)
                         );
+                        formik.setFieldValue('doc_class', selectedClass)
                       }}
                     />
                     {className}
@@ -179,7 +176,7 @@ const UploadPage = () => {
             📁 {selectedFileName}
           </label>
         </div>
-        <button className="bg-blue-600 hover:bg-blue-800 transition text-white p-2 rounded" onClick={uploadHandler}>Upload</button>
+        <button className="bg-blue-600 hover:bg-blue-800 transition text-white p-2 rounded" onClick={uploadHandler}>{uploadState.uploadLoading ? <Loading /> : "Upload"}</button>
       </form>
     </div >
   );
