@@ -43,39 +43,6 @@ const MainSection = () => {
 
   return (
     <div className="main-section w-full">
-      <div className="info-part flex flex-wrap gap-2 sm:gap-10 flex-col sm:flex-row md:flex-row md:justify-start justify-between">
-        <div className="year-part flex gap-2">
-          <div className="year-title">Year:</div>
-          <select className="bg-white border rounded px-3 py-1 text-gray-700 focus:outline-none focus:ring" name="year" id="year" onChange={handleYearChange}>
-            {facultyState?.selectedFaculty?.classes?.map((classItem, index) => (
-              <option value={classItem.year} key={index}>
-                {classItem.year}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="class-part flex gap-2">
-          <div className="class-title">Class:</div>
-          <select className="bg-white border rounded px-3 py-1 text-gray-700 focus:outline-none focus:ring" name="class" id="class">
-            {facultyState?.selectedFaculty?.classes
-              ?.find((classItem) => classItem.year === selectedYear)
-              ?.classes.map((className, index) => (
-                <option value={className} key={index}>{className}</option>
-              ))}
-          </select>
-        </div>
-        <div className="course-part flex gap-2">
-          <div className="course-title">Course:</div>
-          <select className="bg-white border rounded px-3 py-1 text-gray-700 focus:outline-none focus:ring" name="course" id="course">
-            {facultyState?.selectedFaculty?.classes
-              ?.find((classItem) => classItem.year === selectedYear)
-              ?.courses.map((courseName, index) => (
-                <option value={courseName} key={index}>{courseName}</option>
-              ))}
-          </select>
-        </div>
-      </div>
-
       <div className="divider w-full h-[1px] bg-gray-700 mt-3"></div>
 
       <div className="docs-part">
@@ -84,7 +51,7 @@ const MainSection = () => {
           <ErrorAlert message={documentState.error} />
         ) : (
           documentState.isLoading ? (
-            <div className="mt-6">
+            <div className="mt-6 z-[-1]">
               <Loading />
             </div>
           ) : documentState.data && documentState.data.documents ? (
