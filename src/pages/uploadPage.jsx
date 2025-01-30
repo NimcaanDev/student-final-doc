@@ -152,7 +152,12 @@ const UploadPage = () => {
                 <option key={index} value={faculty.name}>{faculty.name}</option>
               ))}
             </select> */}
-            <input type="text" name='faculty' onChange={formik.handleChange} onBlur={formik.handleBlur} id='doc-faculty' className='bg-gray-200 rounded-md px-3 py-2 outline-none' />
+            <select name="faculty" id="doc-faculty" className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' value={formik.values.faculty} onChange={formik.handleChange}>{
+              facultiesData?.faculties?.map((faculty, index) => (
+                <option key={index} value={faculty.id} selected={index === 0 ? true : false}>{faculty.name}</option>
+              ))
+            }</select>
+            {/* <input type="text" name='faculty' onChange={formik.handleChange} onBlur={formik.handleBlur} id='doc-faculty' className='bg-gray-200 rounded-md px-3 py-2 outline-none' /> */}
             <p className="text-sm font-bold text-red-500">
               {formik.touched.faculty && formik.errors.faculty}
             </p>
