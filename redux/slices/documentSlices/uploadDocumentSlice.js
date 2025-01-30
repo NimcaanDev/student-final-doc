@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { baseUrl } from "../../../src/constants/baseUrl";
-import axios from "axios";
-import { DEFAULT_ERROR_MESSAGE } from "../../../src/constants/defaultErrorMessage";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { baseUrl } from '../../../src/constants/baseUrl'
+import axios from 'axios'
+import { DEFAULT_ERROR_MESSAGE } from '../../../src/constants/defaultErrorMessage'
 
 const initialState = {
     uploadLoading: false,
@@ -18,12 +18,13 @@ export const uploadDocumentFn = createAsyncThunk(
             const res = await axios.post(`${baseUrl}documents/upload`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
                 },
-            });
+            })
 
-            return res.data;
+            return res.data
         } catch (error) {
-            return rejectWithValue(error.message || DEFAULT_ERROR_MESSAGE);
+            return rejectWithValue(error.message || DEFAULT_ERROR_MESSAGE)
         }
     }
 )
@@ -47,5 +48,5 @@ export const uploadDocumentSlice = createSlice({
             state.uploadError = ''
             state.uploadData = action.payload
         })
-    }
+    },
 })

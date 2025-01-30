@@ -11,11 +11,13 @@ import { Bounce, toast } from 'react-toastify';
 import { uploadDocumentFn } from '../../redux/slices/documentSlices/uploadDocumentSlice';
 import { getAllFaculties } from '../../redux/slices/facultySlice';
 import { getAllCourses } from '../../redux/slices/courseSlice';
+import { getAllClassesFn } from '../../redux/slices/classSlice';
 
 const UploadPage = () => {
   const uploadState = useSelector(state => state.uploadDocument);
   const facultiesData = useSelector(state => state.faculty.data);
   const coursesData = useSelector(state => state.course.data);
+  const classesData = useSelector(state => state.class.data)
   const [selectedFaculty, setSelectedFaculty] = useState(faculties[0]?.name || "");
   const [selectedYear, setSelectedYear] = useState("fresh");
   const [selectedClass, setSelectedClass] = useState([]);
@@ -41,19 +43,14 @@ const UploadPage = () => {
   useEffect(() => {
     dispatch(getAllFaculties());
     dispatch(getAllCourses());
-
-    if(facultiesData.isLoading || coursesData.isLoading) {
-      return <div className='w-full h-full flex justify-center items-center'>
-        <Loading />
-      </div>
-    }
+    dispatch(getAllClassesFn())
   }, [])
 
   const handleFileChange = (e) => {
     const file = e.currentTarget.files[0];
     if (file) {
       setSelectedFileName(file.name);
-      formik.setFieldValue('doc_file', file);
+      formik.setFieldValue('file', file);
     } else {
       setSelectedFileName('Click to Upload File');
     }
@@ -61,32 +58,32 @@ const UploadPage = () => {
 
   const formik = useFormik({
     initialValues: {
-      doc_name: '',
-      doc_desc: '',
-      doc_faculty: facultiesData.faculties?.[0].name,
-      doc_course: coursesData.courses?.[0].name,
-      doc_year: 'fresh',
-      doc_class: [],
-      doc_file: null,
+      name: '',
+      description: '',
+      faculty: facultiesData.faculties?.[0].name,
+      course: coursesData.courses?.[0].name,
+      year: 'fresh',
+      classes: [],
+      file: null,
     },
     onSubmit(values) {
       const data = {
-        doc_name: values.doc_name,
-        doc_desc: values.doc_desc,
-        doc_faculty: values.doc_faculty,
-        doc_course: values.doc_course,
-        doc_year: values.doc_year,
-        doc_class: values.doc_class,
-        doc_file: values.doc_file,
+        name: values.name,
+        description: values.description,
+        faculty_id: values.faculty,
+        course_id: values.course,
+        file_type: 'PDF',
+        classes: values.classes,
+        file: values.file,
       };
       console.log(facultiesData.faculties?.[0]?.name)
       console.log(data);
       dispatch(uploadDocumentFn(data));
     },
     validationSchema: yup.object({
-      doc_name: yup.string().required("Please enter the name"),
-      doc_desc: yup.string(),
-      doc_file: yup.mixed().required('Please select the file'),
+      name: yup.string().required("Please enter the name"),
+      description: yup.string(),
+      file: yup.mixed().required('Please select the file'),
     }),
   });
 
@@ -122,7 +119,7 @@ const UploadPage = () => {
     }
   }, [uploadState]);
 
-  return (
+  return facultiesData.isLoading || coursesData.isLoading ? <div className='w-full h-screen flex justify-center items-center'><Loading /></div> : (
     <div className='w-[80%] md:w-[500px] mx-auto my-10 flex flex-col gap-6'>
       <Back to={'/studentdocs/dashboard'} />
       <form onSubmit={formik.handleSubmit} className='rounded-lg flex flex-col gap-4'>
@@ -136,43 +133,45 @@ const UploadPage = () => {
 
             {/* Document Name */}
             <label htmlFor="doc-name">Document name<span className='text-red-500 font-bold text-lg'>*</span></label>
-            <input type="text" name='doc_name' id='doc-name' className='bg-gray-200 rounded-md px-3 py-2 outline-none' onChange={formik.handleChange} onBlur={formik.handleBlur} />
+            <input type="text" name='name' id='doc-name' className='bg-gray-200 rounded-md px-3 py-2 outline-none' onChange={formik.handleChange} onBlur={formik.handleBlur} />
             <p className="text-sm font-bold text-red-500">
-              {formik.touched.doc_name && formik.errors.doc_name}
+              {formik.touched.name && formik.errors.name}
             </p>
 
             {/* Description */}
             <label htmlFor="doc-desc" className='mt-2'>Description (optional)</label>
-            <input type="text" name='doc_desc' onChange={formik.handleChange} onBlur={formik.handleBlur} id='doc-desc' className='bg-gray-200 rounded-md px-3 py-2 outline-none' />
+            <input type="text" name='description' onChange={formik.handleChange} onBlur={formik.handleBlur} id='doc-desc' className='bg-gray-200 rounded-md px-3 py-2 outline-none' />
             <p className="text-sm font-bold text-red-500">
-              {formik.touched.doc_desc && formik.errors.doc_desc}
+              {formik.touched.description && formik.errors.description}
             </p>
 
             {/* Faculty Selection */}
             <label htmlFor="doc-faculty" className='mt-2'>Faculty<span className='text-red-500 font-bold text-lg'>*</span></label>
-            <select className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' name='doc_faculty' value={formik.values.doc_faculty} onChange={formik.handleChange} onBlur={formik.handleBlur}>
+            {/* <select className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' name='faculty' value={formik.values.faculty} onChange={formik.handleChange} onBlur={formik.handleBlur}>
               {facultiesData.faculties?.map((faculty, index) => (
                 <option key={index} value={faculty.name}>{faculty.name}</option>
               ))}
-            </select>
+            </select> */}
+            <input type="text" name='faculty' onChange={formik.handleChange} onBlur={formik.handleBlur} id='doc-faculty' className='bg-gray-200 rounded-md px-3 py-2 outline-none' />
             <p className="text-sm font-bold text-red-500">
-              {formik.touched.doc_faculty && formik.errors.doc_faculty}
+              {formik.touched.faculty && formik.errors.faculty}
             </p>
 
             {/* Course Selection */}
             <label htmlFor="doc-course" className='mt-2'>Course<span className='text-red-500 font-bold text-lg'>*</span></label>
-            <select className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' name='doc_faculty' value={formik.values.doc_course} onChange={formik.handleChange} onBlur={formik.handleBlur}>
+            {/* <select className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' name='classes' value={formik.values.course} onChange={formik.handleChange} onBlur={formik.handleBlur}>
               {coursesData.courses?.map((course, index) => (
                 <option key={index} value={course.name}>{course.name}</option>
               ))}
-            </select>
+            </select> */}
+            <input type="text" name='course' onChange={formik.handleChange} onBlur={formik.handleBlur} id='doc-faculty' className='bg-gray-200 rounded-md px-3 py-2 outline-none' />
             <p className="text-sm font-bold text-red-500">
-              {formik.touched.doc_faculty && formik.errors.doc_faculty}
+              {formik.touched.classes && formik.errors.classes}
             </p>
 
             {/* Year Selection */}
             <label htmlFor="doc-year" className='mt-2'>Year<span className='text-red-500 font-bold text-lg'>*</span></label>
-            <select className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' name='doc_year' value={formik.values.doc_year} onChange={(e) => {
+            <select className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' name='year' value={formik.values.year} onChange={(e) => {
               setSelectedYear(e.target.value);
               setSelectedClass([]);
               formik.handleChange();
@@ -182,30 +181,30 @@ const UploadPage = () => {
               ))}
             </select>
             <p className="text-sm font-bold text-red-500">
-              {formik.touched.doc_year && formik.errors.doc_year}
+              {formik.touched.year && formik.errors.year}
             </p>
 
             {/* Class Selection */}
             <label htmlFor="doc-class" className='mt-2'>Class<span className='text-red-500 font-bold text-lg'>*</span></label>
             <div className='text-lg'>
-              {availableClasses.length > 0 ? (
-                availableClasses.map((className, index) => (
+              {classesData?.classes?.length > 0 ? (
+                classesData?.classes?.map((classItem, index) => (
                   <label key={index} className="block">
                     <input
-                      name='doc_class'
+                      name='classes'
                       type="checkbox"
                       className='w-4 h-4 mr-1 border-gray-300 rounded-sm bg-white checked:bg-blue-500 checked:border-blue-500 focus:outline-none transition duration-150 ease-in-out'
-                      value={className}
-                      checked={formik.values.doc_class.includes(className)}
+                      value={classItem.id}
+                      checked={formik.values.classes.includes(classItem.id)}
                       onChange={(e) => {
                         const checked = e.target.checked;
                         const newClasses = checked
-                          ? [...formik.values.doc_class, className]
-                          : formik.values.doc_class.filter(c => c !== className);
-                        formik.setFieldValue('doc_class', newClasses);
+                          ? [...formik.values.classes, classItem.id]
+                          : formik.values.classes.filter(c => c !== classItem.id);
+                        formik.setFieldValue('classes', newClasses);
                       }}
                     />
-                    {className}
+                    {classItem.name}
                   </label>
                 ))
               ) : (
@@ -217,7 +216,7 @@ const UploadPage = () => {
         <div className="flex-1 bg-white shadow-md p-4 rounded-lg flex flex-col gap-4 items-center">
           <h2 className="text-lg font-semibold">Upload File</h2>
           <label className="cursor-pointer p-4 border-dashed border-2 border-blue-500 rounded-lg w-full text-center">
-            <input type="file" name='doc_file' className="hidden" onChange={handleFileChange} />
+            <input type="file" name='file' className="hidden" onChange={handleFileChange} />
             📁 {selectedFileName}
           </label>
         </div>
