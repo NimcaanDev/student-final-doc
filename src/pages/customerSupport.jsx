@@ -16,7 +16,7 @@ const CustomerSupport = () => {
             </div>
             <div className='feedback bg-white p-5 rounded-md flex flex-col gap-2 shadow-md'>
                 <h1 className='text-blue-700 font-semibold text-xl'>✅ Get Help</h1>
-                <h3>Submit an inquiry using the form below or contact us via <a href="https://www.instagram.com/zuhaib__faisal?igsh=MTJ0czB5OWFpbDNo&utm_source=qr" className='text-blue-700 hover:underline transition' target='_blank'>Instagram</a> or <a href="https://api.whatsapp.com/send?phone=+252634541983" className='text-blue-700 hover:underline transition' target='_blank'>WhatsApp</a>.</h3>
+                <h3>Submit an inquiry using the form below or contact us via <a href="https://www.instagram.com/zuhaib__faisal?igsh=MTJ0czB5OWFpbDNo&utm_source=qr" className='text-blue-700 hover:underline transition' target='_blank'>Instagram</a> or <a href="https://wa.me/252634541983" className='text-blue-700 hover:underline transition' target='_blank'>WhatsApp</a>.</h3>
                 <form action="" className='w-full mt-5 flex flex-col gap-2'>
                     <input type="text" placeholder='Your Name' className='bg-gray-200 px-3 py-2 w-full rounded-md' required />
                     <input type="email" placeholder='Your Email Address' className='bg-gray-200 px-3 py-2 w-full rounded-md' required />
