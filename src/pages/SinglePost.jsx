@@ -80,11 +80,7 @@ const SinglePost = () => {
                                 </div>
                                 <div className='flex gap-5'>
                                     <div className='text-gray-800'>Teacher:</div>
-                                    <div>{selectedDocument.user.username}{selectedDocument?.user?.role?.toLowerCase() === "admin" && (
-                                        <span className="px-3 py-1 bg-gray-300 border border-green-500 ml-2 rounded">
-                                            Admin
-                                        </span>
-                                    )}</div>
+                                    <div>{selectedDocument.user.username}</div>
                                 </div>
                                 <div className='flex gap-5'>
                                     <div className='text-gray-800'>Course:</div>
