@@ -7,7 +7,7 @@ import * as yup from 'yup'
 import { useNavigate } from 'react-router-dom';
 import ErrorAlert from '../components/errorAlert';
 import Loading from '../components/loading';
-import { Bounce, toast } from 'react-toastify';
+import { Bounce, toast, ToastContainer } from 'react-toastify';
 import { uploadDocumentFn } from '../../redux/slices/documentSlices/uploadDocumentSlice';
 import { getAllFaculties } from '../../redux/slices/facultySlice';
 import { getAllCourses } from '../../redux/slices/courseSlice';
@@ -56,13 +56,25 @@ const UploadPage = () => {
     }
   };
 
+  useEffect(() => {
+    if (!formik.values.faculty && facultiesData?.faculties?.length) {
+      formik.setFieldValue("faculty", facultiesData.faculties[0].id);
+    }
+  }, [facultiesData]);
+
+  useEffect(() => {
+    if (!formik.values.course && coursesData?.courses?.length) {
+      formik.setFieldValue("course", coursesData.courses[0].id);
+    }
+  }, [coursesData]);
+
   const formik = useFormik({
     initialValues: {
       name: '',
       description: '',
       faculty: '',
       course: '',
-      year: 'fresh',
+      year: 1,
       classes: [],
       file: null,
     },
@@ -76,7 +88,6 @@ const UploadPage = () => {
         classes: values.classes,
         file: values.file,
       };
-      console.log(facultiesData.faculties?.[0]?.name)
       console.log(data);
       dispatch(uploadDocumentFn(data));
     },
@@ -117,7 +128,7 @@ const UploadPage = () => {
         transition: Bounce,
       });
     }
-  }, [uploadState]);
+  }, [uploadState.uploadData, uploadState.uploadError]);
 
   return facultiesData.isLoading || coursesData.isLoading ? <div className='w-full h-screen flex justify-center items-center'><Loading /></div> : (
     <div className='w-[80%] md:w-[500px] mx-auto my-10 flex flex-col gap-6'>
@@ -145,45 +156,41 @@ const UploadPage = () => {
               {formik.touched.description && formik.errors.description}
             </p>
 
+            {/* TODO: add the file format */}
+
             {/* Faculty Selection */}
             <label htmlFor="doc-faculty" className='mt-2'>Faculty<span className='text-red-500 font-bold text-lg'>*</span></label>
-            {/* <select className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' name='faculty' value={formik.values.faculty} onChange={formik.handleChange} onBlur={formik.handleBlur}>
-              {facultiesData.faculties?.map((faculty, index) => (
-                <option key={index} value={faculty.name}>{faculty.name}</option>
-              ))}
-            </select> */}
             <select name="faculty" id="doc-faculty" className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' value={formik.values.faculty} onChange={formik.handleChange}>{
               facultiesData?.faculties?.map((faculty, index) => (
-                <option key={index} value={faculty.id} selected={index === 0 ? true : false}>{faculty.name}</option>
+                <option key={index} value={faculty.id}>{faculty.name}</option>
               ))
             }</select>
-            {/* <input type="text" name='faculty' onChange={formik.handleChange} onBlur={formik.handleBlur} id='doc-faculty' className='bg-gray-200 rounded-md px-3 py-2 outline-none' /> */}
             <p className="text-sm font-bold text-red-500">
               {formik.touched.faculty && formik.errors.faculty}
             </p>
 
             {/* Course Selection */}
             <label htmlFor="doc-course" className='mt-2'>Course<span className='text-red-500 font-bold text-lg'>*</span></label>
-            {/* <select className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' name='classes' value={formik.values.course} onChange={formik.handleChange} onBlur={formik.handleBlur}>
-              {coursesData.courses?.map((course, index) => (
-                <option key={index} value={course.name}>{course.name}</option>
-              ))}
-            </select> */}
-            <input type="text" name='course' onChange={formik.handleChange} onBlur={formik.handleBlur} id='doc-faculty' className='bg-gray-200 rounded-md px-3 py-2 outline-none' />
+            <select name="course" id="doc-course" className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' value={formik.values.course} onChange={formik.handleChange}>{
+              coursesData?.courses?.filter((course) => course.faculty_id === formik.values.faculty).map((course, index) => (
+                <option key={index} value={course.id}>{course.name}</option>
+              ))
+            }</select>
             <p className="text-sm font-bold text-red-500">
               {formik.touched.classes && formik.errors.classes}
             </p>
 
             {/* Year Selection */}
             <label htmlFor="doc-year" className='mt-2'>Year<span className='text-red-500 font-bold text-lg'>*</span></label>
-            <select className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' name='year' value={formik.values.year} onChange={(e) => {
-              setSelectedYear(e.target.value);
-              setSelectedClass([]);
-              formik.handleChange();
-            }} onBlur={formik.handleBlur} disabled={availableYears.length === 0}>
-              {availableYears.map((year, index) => (
-                <option key={index} value={year}>{year}</option>
-              ))}
+            <select className='bg-gray-200 rounded-md px-3 py-2 outline-none w-full' name='year' value={formik.values.year} onChange={(e) => formik.setFieldValue('year', Number(e.target.value))} onBlur={formik.handleBlur}>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
             </select>
             <p className="text-sm font-bold text-red-500">
               {formik.touched.year && formik.errors.year}
@@ -193,14 +200,14 @@ const UploadPage = () => {
             <label htmlFor="doc-class" className='mt-2'>Class<span className='text-red-500 font-bold text-lg'>*</span></label>
             <div className='text-lg'>
               {classesData?.classes?.length > 0 ? (
-                classesData?.classes?.map((classItem, index) => (
+                classesData?.classes?.filter(classItem => classItem.faculty_id === formik.values.faculty).filter((classItem) => classItem.year == formik.values.year).map((classItem, index) => (
                   <label key={index} className="block">
                     <input
                       name='classes'
                       type="checkbox"
                       className='w-4 h-4 mr-1 border-gray-300 rounded-sm bg-white checked:bg-blue-500 checked:border-blue-500 focus:outline-none transition duration-150 ease-in-out'
                       value={classItem.id}
-                      checked={formik.values.classes.includes(classItem.id)}
+                      checked={Array.isArray(formik.values.classes) && formik.values.classes.includes(classItem.id)}
                       onChange={(e) => {
                         const checked = e.target.checked;
                         const newClasses = checked
@@ -213,7 +220,7 @@ const UploadPage = () => {
                   </label>
                 ))
               ) : (
-                <p className="text-gray-500">Select a year first</p>
+                <p className="text-gray-500 text-sm">No Classes found</p>
               )}
             </div>
           </div>
@@ -229,6 +236,7 @@ const UploadPage = () => {
           {uploadState.uploadLoading ? <Loading /> : "Upload"}
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

@@ -15,7 +15,6 @@ const MainSection = () => {
 
 
   const dispatch = useDispatch()
-  console.log(facultyState.selectedFaculty)
   useEffect(() => {
     dispatch(getDocuments())
   }, [dispatch])
