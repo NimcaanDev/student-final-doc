@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleSideBar } from "../../redux/slices/sideBarSlice";
 import { Link } from "react-router-dom";
+import { FaUser } from "react-icons/fa";
+import PopoverDemo from "./popover";
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -23,14 +25,15 @@ const Header = () => {
           </div></Link>
         ) : (null)}
         <div>
-          <Link to='/studentdocs/customer-support'>
-            <div className="text-white text-xl bg-blue-800 hover:text-gray-300 px-3 py-2 rounded-full transition relative group">
-              <i className="fa-solid fa-bullhorn"></i>
-              <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition w-fit">
-                Help
-              </span>
-            </div>
-          </Link>
+          {userState.data.isSuccess ? (
+            <PopoverDemo />
+          ) : (
+            <Link to='/studentdocs/auth/login'>
+              <div className="text-white text-xl bg-blue-800 hover:text-gray-300 px-3 py-3 rounded-full transition relative group">
+                <FaUser />
+              </div>
+            </Link>
+          )}
         </div>
         <div className="block md:hidden cursor-pointer" onClick={changeSideBarState}>
           <i className="fa-solid fa-bars text-white text-3xl transition"></i>

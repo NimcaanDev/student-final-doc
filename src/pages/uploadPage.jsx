@@ -60,8 +60,8 @@ const UploadPage = () => {
     initialValues: {
       name: '',
       description: '',
-      faculty: facultiesData.faculties?.[0].name,
-      course: coursesData.courses?.[0].name,
+      faculty: '',
+      course: '',
       year: 'fresh',
       classes: [],
       file: null,

@@ -50,8 +50,18 @@ const SideBar = () => {
         )}
       </div>
       <div className="side-bar-lower-part mt-10">
-        <div className="text-white bg-blue-700 w-fit px-5 py-2 hover:bg-blue-800 rounded-md transition">
-          <Link to='/studentdocs/project-overview'>Overview</Link>
+        <div className="flex gap-4 items-center">
+          <div className="text-white bg-blue-700 w-fit px-5 py-2 hover:bg-blue-800 rounded-md transition">
+            <Link to='/studentdocs/project-overview'>Overview</Link>
+          </div>
+          <Link to='/studentdocs/customer-support'>
+            <div className="text-xl text-gray-400 cursor-pointer hover:text-gray-700 transition">
+              <i className="fa-solid fa-bullhorn"></i>
+              <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition w-fit">
+                Help
+              </span>
+            </div>
+          </Link>
         </div>
       </div>
     </div >
