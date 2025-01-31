@@ -41,6 +41,11 @@ export const getSingleFaculty = createAsyncThunk(
 export const facultySlice = createSlice({
     name: 'faculty slice',
     initialState,
+    reducers: {
+        resetSelectedFaculty: (state) => {
+            state.selectedFaculty = {}
+        },
+    },
     extraReducers(builder) {
         builder.addCase(getAllFaculties.pending, (state) => {
             ;(state.isLoading = true), (state.error = ''), (state.data = {})
@@ -67,4 +72,4 @@ export const facultySlice = createSlice({
     },
 })
 
-export const { changeFaculty } = facultySlice.actions
+export const { resetSelectedFaculty } = facultySlice.actions

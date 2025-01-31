@@ -9,36 +9,17 @@ const MainSection = () => {
   const documentState = useSelector(state => state.document)
   const facultyState = useSelector(state => state.faculty)
 
-  const [selectedYear, setSelectedYear] = useState(
-    facultyState?.selectedFaculty?.classes?.[0]?.year
-  );
-
-
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getDocuments())
   }, [dispatch])
 
-  // const [selectedClasses, setSelectedClasses] = useState(
-  //   selectedFaculty.classes[0].classes[0]
-  // );
-  // const [selectedCourse, setSelectedCourse] = useState(
-  //   selectedFaculty.classes[0].courses[0]
-  // );
-  const handleYearChange = (e) => {
-    const year = e.target.value;
-    setSelectedYear(year);
-  };
-
-  // const handleClassChange = (e) => {
-  //   const classValue = e.target.value;
-  //   setSelectedCourse(classValue);
-  // };
-
-  // const handleCourseChange = (e) => {
-  //   const course = e.target.value;
-  //   setSelectedCourse(course);
-  // };
+  const filteredData = documentState?.data?.documents?.filter((doc) => {
+    if (!facultyState.selectedFaculty) {
+      return true;
+    }
+    return doc.faculty_id === facultyState.selectedFaculty.id;
+  });
 
   return (
     <div className="main-section w-full">
@@ -51,9 +32,10 @@ const MainSection = () => {
             <div className="mt-6 z-[-1]">
               <Loading />
             </div>
-          ) : documentState.data && documentState.data.documents ? (
+          ) : filteredData && filteredData.length > 0 ? (
             <div className="docs grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-              {documentState.data.documents.map((document) => (
+              {console.log(filteredData[0].name)}
+              {filteredData.map((document) => (
                 <Doc
                   key={document.id}
                   id={document.id}

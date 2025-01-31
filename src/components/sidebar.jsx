@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getAllFaculties, getSingleFaculty } from "../../redux/slices/facultySlice";
+import { getAllFaculties, getSingleFaculty, resetSelectedFaculty } from "../../redux/slices/facultySlice";
 import Loading from "./loading";
 import { RiCustomerService2Fill } from "react-icons/ri";
 
@@ -16,6 +16,11 @@ const SideBar = () => {
     setActiveIndex(index);
     dispatch(getSingleFaculty(id));
   };
+
+  const sideBarAll = () => {
+    setActiveIndex(0)
+    dispatch(resetSelectedFaculty())
+  }
 
   useEffect(() => {
     dispatch(getAllFaculties())
@@ -34,14 +39,15 @@ const SideBar = () => {
           </div>
         ) : (
           <ul className="text-gray-800 flex flex-col gap-1 mt-2">
+            <li onClick={sideBarAll} className={`cursor-pointer transition py-1 px-4 rounded-md hover:text-blue-700 hover:bg-gray-200 ${activeIndex === 0 ? "text-blue-700 bg-gray-200" : ""}`}>All</li>
             {facultyState.data?.faculties?.map((faculty, index) => (
               <li
                 key={index}
-                className={`cursor-pointer transition py-1 px-4 rounded-md ${activeIndex != index
+                className={`cursor-pointer transition py-1 px-4 rounded-md ${activeIndex != index + 1
                   ? " hover:text-blue-700 hover:bg-gray-200"
                   : "text-blue-700 bg-gray-200"
                   }`}
-                onClick={() => sideBarClickHandler(index, faculty.id)}
+                onClick={() => sideBarClickHandler(index + 1, faculty.id)}
               >
                 {faculty.name}
               </li>
