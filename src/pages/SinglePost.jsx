@@ -4,13 +4,17 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSingleDocument } from '../../redux/slices/documentSlices/getSingleDocumentSlice';
 import Loading from '../components/loading';
+import { MdContentCopy } from "react-icons/md";
+import { Bounce, toast, ToastContainer } from 'react-toastify';
 
 const SinglePost = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
 
-    const singleDocumentState = useSelector(state => state.getSingleDocument);
+    const singleDocumentState = useSelector(state => state.singleDocument);
     const selectedDocument = singleDocumentState.singleData?.selectedDocument;
+
+    const successToastId = 'success-toast';
 
     const downloadUrl = `${selectedDocument?.link.replace('/upload/', '/upload/fl_attachment/')}`;
 
@@ -20,6 +24,36 @@ const SinglePost = () => {
         }
     }, [dispatch, id]);
 
+    const handleCopyLink = async () => {
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            toast.success("Link copied!", {
+                toastId: successToastId,
+                position: "top-right",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        } catch (error) {
+            toast.error("Fieled to copy!", {
+                toastId: successToastId,
+                position: "top-right",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+        }
+    }
 
     return (
         <div className='w-full bg-transparent'>
@@ -46,7 +80,11 @@ const SinglePost = () => {
                                 </div>
                                 <div className='flex gap-5'>
                                     <div className='text-gray-800'>Teacher:</div>
-                                    <div>{selectedDocument.user.username}</div>
+                                    <div>{selectedDocument.user.username}{selectedDocument?.user?.role?.toLowerCase() === "admin" && (
+                                        <span className="px-3 py-1 bg-gray-300 border border-green-500 ml-2 rounded">
+                                            Admin
+                                        </span>
+                                    )}</div>
                                 </div>
                                 <div className='flex gap-5'>
                                     <div className='text-gray-800'>Course:</div>
@@ -70,20 +108,25 @@ const SinglePost = () => {
                                 </div>
                                 <div className='flex gap-5'>
                                     <div className='text-gray-800'>Size:</div>
-                                    <div>{selectedDocument.size}KB</div>
+                                    <div>{(selectedDocument.size / 1000).toFixed(1)}KB</div>
                                 </div>
                             </div>
 
-                            <div>
-                                {selectedDocument?.link && (
-                                    <div className='flex gap-2'>
-                                        <a href={downloadUrl} download={selectedDocument?.name}>
-                                            <button className='text-white bg-blue-700 w-fit px-5 py-2 hover:bg-blue-800 rounded-md transition my-4'>
-                                                Download
-                                            </button>
-                                        </a>
-                                    </div>
-                                )}
+                            <div className='flex gap-4 items-center'>
+                                <div>
+                                    {selectedDocument?.link && (
+                                        <div className='flex gap-2'>
+                                            <a href={downloadUrl} download={selectedDocument?.name}>
+                                                <button className='text-white bg-blue-700 w-fit px-5 py-2 hover:bg-blue-800 rounded-md transition my-4'>
+                                                    Download
+                                                </button>
+                                            </a>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className='text-2xl text-gray-400 hover:text-gray-700 transition cursor-pointer active:text-blue-700' onClick={handleCopyLink}>
+                                    <MdContentCopy />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -91,6 +134,7 @@ const SinglePost = () => {
                     <p className="text-center text-gray-600 mt-4">Document not found.</p>
                 )
             )}
+            <ToastContainer />
         </div >
     );
 };

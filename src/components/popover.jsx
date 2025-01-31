@@ -32,6 +32,13 @@ const PopoverDemo = () => {
                     sideOffset={5}>
                     <div className="flex flex-col gap-2 mt-4">
                         <fieldset className="flex items-center gap-5 hover:bg-gray-400 px-6 py-1 rounded-md">
+                            <div className="user-info">
+                                <div className="username text-gray-800 text-xl font-bold">{userData?.user?.username}</div>
+                                <div className="email text-gray-500 text-sm">{userData?.user?.email}</div>
+                            </div>
+                        </fieldset>
+                        <div className="divider w-full h-[1px] bg-gray-200"></div>
+                        <fieldset className="flex items-center gap-5 hover:bg-gray-400 px-6 py-1 rounded-md">
                             <Link to={'/studentdocs'}>Home page</Link>
                         </fieldset>
                         <fieldset className="flex items-center gap-5 hover:bg-red-200 px-6 py-1 rounded-md text-red-600 font-bold w-full transition">
