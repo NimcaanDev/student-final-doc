@@ -7,6 +7,8 @@ import { FaPen, FaPlus, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const DocumentsTeacher = () => {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
     const documentState = useSelector((state) => state.document);
     const dispatch = useDispatch();
 
@@ -17,13 +19,15 @@ const DocumentsTeacher = () => {
     if (documentState.error) return <ErrorAlert message={documentState.error} />;
     if (documentState.isLoading) return <Loading />;
 
+    const filteredDocuments = documentState.data?.documents?.filter(doc => doc.user.id === userData.user.id);
+
     return (
         <div className="p-4">
             <div className="flex justify-between items-center mb-2">
                 <h1 className="font-bold text-xl text-blue-700">Documents</h1>
                 <Link to='/studentdocs/document/upload'><button className="text-white bg-blue-700 w-fit px-5 py-2 hover:bg-blue-800 rounded-md transition flex gap-2 items-center"><FaPlus /> Upload Document</button></Link>
             </div>
-            {documentState.data?.documents?.length > 0 ? (
+            {filteredDocuments?.length > 0 ? (
                 <table className="table-fixed w-full border-collapse border border-gray-300 bg-white shadow-md">
                     <thead>
                         <tr className="bg-blue-200">
@@ -38,7 +42,7 @@ const DocumentsTeacher = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {documentState.data.documents.map((document) => (
+                        {filteredDocuments.map((document) => (
                             <tr key={document.id} className="border-b hover:bg-gray-50">
                                 <td className="px-3 py-1 text-sm text-gray-900 border">
                                     {document.id.length > 10 ? document.id.slice(0, 10) + "..." : document.id}
@@ -80,7 +84,7 @@ const DocumentsTeacher = () => {
                     <tbody>
                         <tr>
                             <td colSpan={7} className="text-center py-4 text-gray-600 border">
-                                No faculty members found.
+                                No documents found.
                             </td>
                         </tr>
                     </tbody>
