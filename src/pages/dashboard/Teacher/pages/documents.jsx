@@ -74,12 +74,12 @@ const DocumentsTeacher = () => {
                                     </td>
                                     <td>
                                         <div className="flex justify-center items-center gap-2">
-                                            <button className="bg-blue-700 text-white text-sm rounded-md hover:bg-blue-700">
-                                                <UpdateDocument document_id={document.id} />
-                                            </button>
-                                            <button className="bg-red-700 text-white text-sm rounded-md hover:bg-blue-700">
-                                                <AlertDialog />
-                                            </button>
+                                            <div className="bg-blue-700 text-white text-sm rounded-md hover:bg-blue-700">
+                                                <UpdateDocument key={document.id} document_id={document.id} />
+                                            </div>
+                                            <div className="bg-red-700 text-white text-sm rounded-md hover:bg-blue-700">
+                                                <AlertDialog key={document.id} document_id={document.id} />
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>

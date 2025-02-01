@@ -8,17 +8,15 @@ import { getAllCourses } from "../../../../redux/slices/courseSlice";
 import { getAllClassesFn } from "../../../../redux/slices/classSlice";
 import { useFormik } from "formik";
 import { Dialog } from "radix-ui";
-import { toast } from "react-toastify";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 import * as yup from "yup";
 import { getSingleDocument } from "../../../../redux/slices/documentSlices/getSingleDocumentSlice";
 import Loading from "../../../components/loading";
+import { updateDocumentFn } from "../../../../redux/slices/documentSlices/updateDocumentSlice";
 
 const UpdateDocument = ({ document_id }) => {
     const updateState = useSelector(state => state.updateDocument);
     const selectedDocumentState = useSelector(state => state.singleDocument);
-    const facultiesData = useSelector(state => state.faculty.data);
-    const coursesData = useSelector(state => state.course.data);
-    const classesData = useSelector(state => state.class.data);
     const successToastId = 'success-toast';
 
     const dispatch = useDispatch();
@@ -40,16 +38,13 @@ const UpdateDocument = ({ document_id }) => {
         },
         onSubmit(values) {
             const data = {
+                id: document_id,
                 name: values.name,
                 description: values.description,
-                faculty_id: values.faculty,
-                course_id: values.course,
                 file_type: values.file_type,
-                classes: values.classes,
             };
-            console.log(data);
-            alert(JSON.stringify(data, null, 2));
-            // dispatch(uploadDocumentFn(data));
+
+            dispatch(updateDocumentFn(data));
         },
         validationSchema: yup.object({
             name: yup.string().required("Please enter the name"),
@@ -105,8 +100,6 @@ const UpdateDocument = ({ document_id }) => {
             });
         }
     }, [selectedDocumentState.singleData]);
-
-    console.log(formik.values.course)
 
     return selectedDocumentState.singleLoading ? <div className="bg-gray-800"><Loading /></div> : (
         <Dialog.Root onOpenChange={handleDialogOpen}>
@@ -174,11 +167,9 @@ const UpdateDocument = ({ document_id }) => {
                             </select>
                         </fieldset>
                         <div className="mt-[25px] flex justify-end">
-                            <Dialog.Close asChild>
-                                <button type="submit" className="inline-flex h-[35px] items-center justify-center rounded bg-green-700 px-[15px] font-medium leading-none text-green-200 outline-none outline-offset-1 hover:bg-green-900 focus-visible:outline-2 focus-visible:outline-green-200 select-none">
-                                    Save changes
-                                </button>
-                            </Dialog.Close>
+                            <button type="submit" className="inline-flex h-[35px] items-center justify-center rounded bg-green-700 px-[15px] font-medium leading-none text-green-200 outline-none outline-offset-1 hover:bg-green-900 focus-visible:outline-2 focus-visible:outline-green-200 select-none">
+                                Save changes
+                            </button>
                         </div>
                     </form>
                     <Dialog.Close asChild>
@@ -191,6 +182,7 @@ const UpdateDocument = ({ document_id }) => {
                     </Dialog.Close>
                 </Dialog.Content>
             </Dialog.Portal>
+            <ToastContainer />
         </Dialog.Root>
     );
 };
