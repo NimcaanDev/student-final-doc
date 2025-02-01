@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import DashboardHeader from '../dashboardHeader'
 import { useNavigate } from 'react-router-dom'
+import SidebarDashboard from '../Admin/sidebar'
 
 const DashboardLayoutAdmin = () => {
     const userData = JSON.parse(localStorage.getItem('userData'))
@@ -18,6 +19,7 @@ const DashboardLayoutAdmin = () => {
     return (
         <div className='dashboard'>
             <DashboardHeader />
+            <SidebarDashboard />
         </div>
     )
 }
