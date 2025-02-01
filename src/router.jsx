@@ -11,6 +11,7 @@ import LoginPage from './pages/auth/loginPage'
 import DashboardLayoutAdmin from './pages/dashboard/layout/dashboardLayout'
 import DashboardLayoutTeacher from './pages/dashboard/layout/dashboardLayoutTeacher'
 import HomeTeacher from './pages/dashboard/Teacher/pages/home'
+import DocumentsTeacher from './pages/dashboard/Teacher/pages/documents'
 
 const router = createBrowserRouter([
   {
@@ -39,7 +40,11 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomeTeacher />
-      }
+      },
+      {
+        path: 'document',
+        element: <DocumentsTeacher />
+      },
     ]
   },
   {

@@ -55,13 +55,13 @@ const SideBarTeacher = () => {
                 onClick={toggleSidebar}
                 className='fixed top-4 right-4 p-2 text-white rounded-lg md:hidden z-50'
             >
-                <FaBars className='w-6 h-6' />
+                <FaBars className='w-8 h-8' />
             </button>
 
             {/* Sidebar */}
             <motion.div
                 ref={sidebarRef}
-                className={`fixed top-18 left-0 w-64 h-screen bg-gray-800 text-white p-4 transform transition-transform duration-200 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                className={`fixed top-18 left-0 w-full h-screen bg-gray-800 text-white p-4 transform transition-transform duration-200 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
                     } md:translate-x-0 md:relative`}
                 animate={{ width: 240 }}
             >

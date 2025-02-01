@@ -16,8 +16,12 @@ const DashboardLayoutTeacher = () => {
         <div className='dashboard'>
             <DashboardHeader />
             <div className="flex">
-                <SideBarTeacher />
-                <Outlet />
+                <div className='w-[25%]'>
+                    <SideBarTeacher />
+                </div>
+                <div className="bg-slate-300 flex-grow">
+                    <Outlet />
+                </div>
             </div>
         </div>
     )
