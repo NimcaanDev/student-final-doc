@@ -19,7 +19,7 @@ const DashboardLayoutTeacher = () => {
                 <div className='w-[25%]'>
                     <SideBarTeacher />
                 </div>
-                <div className="bg-slate-300 flex-grow">
+                <div className="bg-blue-100 flex-grow">
                     <Outlet />
                 </div>
             </div>
