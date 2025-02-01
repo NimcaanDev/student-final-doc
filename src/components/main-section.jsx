@@ -14,11 +14,16 @@ const MainSection = () => {
     dispatch(getDocuments())
   }, [dispatch])
 
-  const filteredData = documentState?.data?.documents?.filter((doc) => {
-    if (!facultyState.selectedFaculty) {
+  const documents = documentState?.data?.documents || [];
+
+  const filteredData = documents.filter((doc) => {
+    const selectedFaculty = facultyState?.selectedFaculty;
+
+    if (!selectedFaculty || Object.keys(selectedFaculty)?.length === 0) {
       return true;
     }
-    return doc.faculty_id === facultyState.selectedFaculty.id;
+
+    return doc?.faculty.id === selectedFaculty.faculty?.id;
   });
 
   return (
@@ -32,9 +37,9 @@ const MainSection = () => {
             <div className="mt-6 z-[-1]">
               <Loading />
             </div>
-          ) : filteredData && filteredData.length > 0 ? (
+          ) : filteredData.length > 0 ? (
             <div className="docs grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-              {console.log(filteredData[0].name)}
+              {/* here */}
               {filteredData.map((document) => (
                 <Doc
                   key={document.id}
