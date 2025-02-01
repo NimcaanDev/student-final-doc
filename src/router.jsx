@@ -8,8 +8,8 @@ import CustomerSupport from './pages/customerSupport'
 import MainSection from './components/main-section'
 import SinglePost from './pages/SinglePost'
 import LoginPage from './pages/auth/loginPage'
-import DashboardLayout from './pages/dashboard/dashboardLayout'
-import UploadForm from './components/testform'
+import DashboardLayoutAdmin from './pages/dashboard/layout/dashboardLayout'
+import DashboardLayoutTeacher from './pages/dashboard/layout/dashboardLayoutTeacher'
 
 const router = createBrowserRouter([
   {
@@ -27,12 +27,13 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: "/studentdocs/test",
-    element: <UploadForm />
+    path: '/studentdocs/dashboard/admin',
+    element: <DashboardLayoutAdmin />,
+    // children: []
   },
   {
-    path: '/studentdocs/dashboard',
-    element: <DashboardLayout />,
+    path: '/studentdocs/dashboard/teacher',
+    element: <DashboardLayoutTeacher />,
     // children: []
   },
   {

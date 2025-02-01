@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import DashboardHeader from './dashboardHeader'
+import DashboardHeader from '../dashboardHeader'
 import { useNavigate } from 'react-router-dom'
 
-const DashboardLayout = () => {
+const DashboardLayoutTeacher = () => {
     const userData = JSON.parse(localStorage.getItem('userData'))
     const navigate = useNavigate()
 
@@ -14,8 +14,11 @@ const DashboardLayout = () => {
     return (
         <div className='dashboard'>
             <DashboardHeader />
+            <div className='dashboard-content'>
+                <h1 className='text-4xl'>Teacher Dashboard</h1>
+            </div>
         </div>
     )
 }
 
-export default DashboardLayout
+export default DashboardLayoutTeacher

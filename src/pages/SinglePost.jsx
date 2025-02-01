@@ -6,6 +6,7 @@ import { getSingleDocument } from '../../redux/slices/documentSlices/getSingleDo
 import Loading from '../components/loading';
 import { MdContentCopy } from "react-icons/md";
 import { Bounce, toast, ToastContainer } from 'react-toastify';
+import { FormattedSize } from '../components/formatSize';
 
 const SinglePost = () => {
     const { id } = useParams();
@@ -104,7 +105,7 @@ const SinglePost = () => {
                                 </div>
                                 <div className='flex gap-5'>
                                     <div className='text-gray-800'>Size:</div>
-                                    <div>{(selectedDocument.size / 1000).toFixed(1)}KB</div>
+                                    <div><FormattedSize size={selectedDocument.size} /></div>
                                 </div>
                             </div>
 

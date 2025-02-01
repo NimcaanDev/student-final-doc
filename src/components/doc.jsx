@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FormattedSize } from "./formatSize";
 
 const Doc = ({
   id,
@@ -28,7 +29,7 @@ const Doc = ({
         <div className="doc-info">
           <div className="doc-name font-bold text-xl">{fileName}</div>
           <div className="course-name text-gray-800">{courseName}</div>
-          <div className="doc-size text-gray-500 text-sm">{(size / 1000).toFixed(1)}KB</div>
+          <div className="doc-size text-gray-500 text-sm"><FormattedSize size={size} /></div>
           <div className="sub-info flex justify-between mt-3">
             <div className="shift text-gray-800">{classes?.map(cls => cls.class.name).join(", ") || "No classes"}</div>
             <div className="class-name text-gray-800 font-bold">

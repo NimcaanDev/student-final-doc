@@ -20,7 +20,7 @@ const Header = () => {
       </div>
       <div className="right-part flex gap-4 items-center">
         {userState.data.isSuccess ? (
-          <Link to='/studentdocs/dashboard'><div className="upload border-2 border-white text-white py-1 px-5 transition hover:bg-white  rounded-md hover:text-blue-700 cursor-pointer">
+          <Link to={userState.data.user.role === 'admin' ? '/studentdocs/dashboard/admin' : '/studentdocs/dashboard/teacher'}><div className="upload border-2 border-white text-white py-1 px-5 transition hover:bg-white  rounded-md hover:text-blue-700 cursor-pointer">
             Dashboard
           </div></Link>
         ) : (null)}
