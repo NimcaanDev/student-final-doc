@@ -10,6 +10,7 @@ import SinglePost from './pages/SinglePost'
 import LoginPage from './pages/auth/loginPage'
 import DashboardLayoutAdmin from './pages/dashboard/layout/dashboardLayout'
 import DashboardLayoutTeacher from './pages/dashboard/layout/dashboardLayoutTeacher'
+import HomeTeacher from './pages/dashboard/Teacher/pages/home'
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,12 @@ const router = createBrowserRouter([
   {
     path: '/studentdocs/dashboard/teacher',
     element: <DashboardLayoutTeacher />,
-    // children: []
+    children: [
+      {
+        index: true,
+        element: <HomeTeacher />
+      }
+    ]
   },
   {
     path: '/studentdocs/upload',

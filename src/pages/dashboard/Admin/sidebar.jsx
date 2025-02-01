@@ -63,9 +63,8 @@ const SidebarDashboard = () => {
             {/* Sidebar */}
             <motion.div
                 ref={sidebarRef}
-                className={`fixed inset-y-0 left-0 w-64 bg-gray-800 text-white p-4 transform transition-transform duration-200 ease-in-out ${
-                    isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-                } md:translate-x-0 md:relative`}
+                className={`fixed inset-y-0 left-0 w-64 h-screen bg-gray-800 text-white p-4 transform transition-transform duration-200 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                    } md:translate-x-0 md:relative`}
                 animate={{ width: isSidebarOpen ? 256 : 64 }}
             >
                 {/* Sidebar Content */}
@@ -78,11 +77,10 @@ const SidebarDashboard = () => {
                             <li key={item.href}>
                                 <Link
                                     to={item.href}
-                                    className={`flex items-center p-2 rounded transition-all ${
-                                        isActive(item.href)
+                                    className={`flex items-center p-2 rounded transition-all ${isActive(item.href)
                                             ? 'bg-blue-700 text-white'
                                             : 'hover:bg-gray-700'
-                                    }`}
+                                        }`}
                                 >
                                     {/* Icon */}
                                     <item.icon className='w-6 h-6' />

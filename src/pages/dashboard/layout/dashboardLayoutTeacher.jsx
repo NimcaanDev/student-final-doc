@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import DashboardHeader from '../dashboardHeader'
-import { useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
+import SideBarTeacher from '../Teacher/sidebarTeacher'
 
 const DashboardLayoutTeacher = () => {
     const userData = JSON.parse(localStorage.getItem('userData'))
@@ -14,8 +15,9 @@ const DashboardLayoutTeacher = () => {
     return (
         <div className='dashboard'>
             <DashboardHeader />
-            <div className='dashboard-content'>
-                <h1 className='text-4xl'>Teacher Dashboard</h1>
+            <div className="flex">
+                <SideBarTeacher />
+                <Outlet />
             </div>
         </div>
     )

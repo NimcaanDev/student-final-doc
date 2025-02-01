@@ -16,7 +16,7 @@ const DashboardHeader = () => {
                     <PopoverDemo />
                 </div>
                 <div className="block md:hidden cursor-pointer">
-                    <i className="fa-solid fa-bars text-white text-3xl transition"></i>
+                    <div className='px-5'></div>
                 </div>
             </div>
         </div>
