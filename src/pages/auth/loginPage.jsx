@@ -65,7 +65,13 @@ const LoginPage = () => {
             });
 
             localStorage.setItem("userData", JSON.stringify(loginState.data))
-            navigate('/studentdocs/dashboard');
+            if (loginState.data.user.role === 'admin') {
+                navigate('/studentdocs/dashboard/admin')
+            }
+
+            if (loginState.data.user.role === 'teacher') {
+                navigate('/studentdocs/dashboard/teacher')
+            }
         }
     }, [loginState.error, loginState.data])
 

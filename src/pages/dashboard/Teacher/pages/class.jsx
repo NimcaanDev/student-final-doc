@@ -25,45 +25,47 @@ const ClassTeacher = () => {
                 <button className="text-white bg-blue-700 w-fit px-5 py-2 hover:bg-blue-800 rounded-md transition flex gap-2 items-center"><FaPlus /> New Class</button>
             </div>
             {classState.data?.classes?.length > 0 ? (
-                <table className="table-fixed w-full border-collapse border border-gray-300 bg-white shadow-md">
-                    <thead>
-                        <tr className="bg-blue-200">
-                            <th className="px-3 py-2 border">ID</th>
-                            <th className="px-3 py-2 border">Name</th>
-                            <th className="px-3 py-2 border">Year</th>
-                            <th className="px-3 py-2 border">Faculty</th>
-                            <th className="px-3 py-2 border">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {classState.data.classes.map((cls) => (
-                            <tr key={cls.id} className="border-b hover:bg-gray-50">
-                                <td className="px-3 py-1 text-sm text-gray-900 border">
-                                    {cls.id.length > 10 ? cls.id.slice(0, 10) + "..." : cls.id}
-                                </td>
-                                <td className="px-3 py-1 text-sm text-gray-900 border">
-                                    {cls.name}
-                                </td>
-                                <td className="px-3 py-1 text-sm text-gray-900 border">
-                                    {cls.year || "No description"}
-                                </td>
-                                <td className="px-3 py-1 text-sm text-gray-900 border">
-                                    {cls.faculty.name || "N/A"}
-                                </td>
-                                <td>
-                                    <div className="flex justify-center items-center gap-2">
-                                        <button className="bg-blue-700 text-white px-2 py-2 text-sm rounded-md hover:bg-blue-700">
-                                            <FaPen />
-                                        </button>
-                                        <button className="bg-red-700 text-white px-2 py-2 text-sm rounded-md hover:bg-blue-700">
-                                            <FaTrash />
-                                        </button>
-                                    </div>
-                                </td>
+                <div className="overflow-x-auto">
+                    <table className="table-fixed w-[200%] md:w-full border-collapse border border-gray-300 bg-white shadow-md">
+                        <thead>
+                            <tr className="bg-blue-200">
+                                <th className="px-3 py-2 border">ID</th>
+                                <th className="px-3 py-2 border">Name</th>
+                                <th className="px-3 py-2 border">Year</th>
+                                <th className="px-3 py-2 border">Faculty</th>
+                                <th className="px-3 py-2 border">Actions</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {classState.data.classes.map((cls) => (
+                                <tr key={cls.id} className="border-b hover:bg-gray-50">
+                                    <td className="px-3 py-1 text-sm text-gray-900 border">
+                                        {cls.id.length > 10 ? cls.id.slice(0, 10) + "..." : cls.id}
+                                    </td>
+                                    <td className="px-3 py-1 text-sm text-gray-900 border">
+                                        {cls.name}
+                                    </td>
+                                    <td className="px-3 py-1 text-sm text-gray-900 border">
+                                        {cls.year || "No description"}
+                                    </td>
+                                    <td className="px-3 py-1 text-sm text-gray-900 border">
+                                        {cls.faculty.name || "N/A"}
+                                    </td>
+                                    <td>
+                                        <div className="flex justify-center items-center gap-2">
+                                            <button className="bg-blue-700 text-white px-2 py-2 text-sm rounded-md hover:bg-blue-700">
+                                                <FaPen />
+                                            </button>
+                                            <button className="bg-red-700 text-white px-2 py-2 text-sm rounded-md hover:bg-blue-700">
+                                                <FaTrash />
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             ) : (
                 <table className="table-fixed w-full border-collapse border border-gray-300">
                     <tbody>

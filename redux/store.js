@@ -7,6 +7,8 @@ import { getSingleDocumentSlice } from './slices/documentSlices/getSingleDocumen
 import { uploadDocumentSlice } from './slices/documentSlices/uploadDocumentSlice'
 import { courseSlice } from './slices/courseSlice'
 import { classSlice } from './slices/classSlice'
+import { updateDocumentSlice } from './slices/documentSlices/updateDocumentSlice'
+import { deleteDocumentSlice } from './slices/documentSlices/deleteDocumentSlice'
 
 const store = configureStore({
     reducer: {
@@ -17,6 +19,8 @@ const store = configureStore({
         document: documentSlice.reducer,
         singleDocument: getSingleDocumentSlice.reducer,
         uploadDocument: uploadDocumentSlice.reducer,
+        updateDocument: updateDocumentSlice.reducer,
+        deleteDocument: deleteDocumentSlice.reducer,
         user: loginSlice.reducer,
     },
 })
