@@ -39,7 +39,6 @@ const MainSection = () => {
             </div>
           ) : filteredData.length > 0 ? (
             <div className="docs grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-              {/* here */}
               {filteredData.map((document) => (
                 <Doc
                   key={document.id}
@@ -47,7 +46,7 @@ const MainSection = () => {
                   fileType={document.file_type}
                   fileName={document.name}
                   courseName={document.course?.name || "Unknown"}
-                  shift={"morning"}
+                  classes={document.classes}
                   size={document.size}
                 />
               ))}

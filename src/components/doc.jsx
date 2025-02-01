@@ -7,7 +7,7 @@ const Doc = ({
   fileType,
   fileName,
   courseName,
-  shift,
+  classes,
   classIdentify,
   size
 }) => {
@@ -17,6 +17,7 @@ const Doc = ({
     //   download
     // >
     <Link to={`/studentdocs/detail/post/${id}`}>
+      {console.log(classes)}
       <div className="doc p-4 shadow-md border border-gray-400 bg-white hover:bg-gray-200 hover:border-blue-600 transition rounded-md flex flex-col gap-3">
         <div className="cover-part h-20 mx-auto">
           <img
@@ -29,7 +30,7 @@ const Doc = ({
           <div className="course-name text-gray-800">{courseName}</div>
           <div className="doc-size text-gray-500 text-sm">{(size / 1000).toFixed(1)}KB</div>
           <div className="sub-info flex justify-between mt-3">
-            <div className="shift text-gray-800">{shift}</div>
+            <div className="shift text-gray-800">{classes?.map(cls => cls.class.name).join(", ") || "No classes"}</div>
             <div className="class-name text-gray-800 font-bold">
               {classIdentify}
             </div>
