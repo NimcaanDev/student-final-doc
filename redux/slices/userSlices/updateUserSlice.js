@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { baseUrl } from '../../../src/constants/baseUrl'
-import { DEFAULT_ERROR_MESSAGE } from '../../../src/constants/defaultErrorMessage'
 
 const initialState = {
     isLoading: false,
@@ -9,13 +7,13 @@ const initialState = {
     data: {},
 }
 
-export const updateDocumentFn = createAsyncThunk(
-    'update/document',
+export const updateUserFn = createAsyncThunk(
+    'update/user',
     async (data, { rejectWithValue, getState }) => {
         const stateData = getState()
         const { token } = stateData?.user?.data
         try {
-            const res = await axios.put(`${baseUrl}documents/update`, data, {
+            const res = await axios.put(`${baseUrl}users/update`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -28,21 +26,21 @@ export const updateDocumentFn = createAsyncThunk(
     }
 )
 
-export const updateDocumentSlice = createSlice({
-    name: 'updateDocument',
+export const updateUserSlice = createSlice({
+    name: 'updateUser',
     initialState,
     extraReducers: (builder) => {
-        builder.addCase(updateDocumentFn.pending, (state) => {
+        builder.addCase(updateUserFn.pending, (state) => {
             state.isLoading = true
             state.error = ''
             state.data = {}
         })
-        builder.addCase(updateDocumentFn.rejected, (state, action) => {
+        builder.addCase(updateUserFn.rejected, (state, action) => {
             state.isLoading = false
             state.error = action.payload
             state.data = {}
         })
-        builder.addCase(updateDocumentFn.fulfilled, (state, action) => {
+        builder.addCase(updateUserFn.fulfilled, (state, action) => {
             state.isLoading = false
             state.error = ''
             state.data = action.payload

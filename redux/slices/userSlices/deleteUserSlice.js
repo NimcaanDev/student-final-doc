@@ -9,13 +9,13 @@ const initialState = {
     data: {},
 }
 
-export const updateDocumentFn = createAsyncThunk(
-    'update/document',
-    async (data, { rejectWithValue, getState }) => {
+export const deleteUserFn = createAsyncThunk(
+    'delete/user',
+    async (id, { rejectWithValue, getState }) => {
         const stateData = getState()
         const { token } = stateData?.user?.data
         try {
-            const res = await axios.put(`${baseUrl}documents/update`, data, {
+            const res = await axios.delete(`${baseUrl}users/delete`, id, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -28,21 +28,21 @@ export const updateDocumentFn = createAsyncThunk(
     }
 )
 
-export const updateDocumentSlice = createSlice({
-    name: 'updateDocument',
+export const deleteUserSlice = createSlice({
+    name: 'deleteUser',
     initialState,
     extraReducers: (builder) => {
-        builder.addCase(updateDocumentFn.pending, (state) => {
+        builder.addCase(deleteUserFn.pending, (state) => {
             state.isLoading = true
             state.error = ''
             state.data = {}
         })
-        builder.addCase(updateDocumentFn.rejected, (state, action) => {
+        builder.addCase(deleteUserFn.rejected, (state, action) => {
             state.isLoading = false
             state.error = action.payload
             state.data = {}
         })
-        builder.addCase(updateDocumentFn.fulfilled, (state, action) => {
+        builder.addCase(deleteUserFn.fulfilled, (state, action) => {
             state.isLoading = false
             state.error = ''
             state.data = action.payload

@@ -9,6 +9,7 @@ import { courseSlice } from './slices/courseSlice'
 import { classSlice } from './slices/classSlice'
 import { updateDocumentSlice } from './slices/documentSlices/updateDocumentSlice'
 import { deleteDocumentSlice } from './slices/documentSlices/deleteDocumentSlice'
+import { deleteUserSlice } from './slices/userSlices/deleteUserSlice'
 
 const store = configureStore({
     reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
         updateDocument: updateDocumentSlice.reducer,
         deleteDocument: deleteDocumentSlice.reducer,
         user: loginSlice.reducer,
+        deleteUser: deleteUserSlice.reducer,
     },
 })
 
