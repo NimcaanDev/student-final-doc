@@ -13,6 +13,7 @@ import DashboardLayoutTeacher from './pages/dashboard/layout/dashboardLayoutTeac
 import HomeTeacher from './pages/dashboard/Teacher/pages/home'
 import DocumentsTeacher from './pages/dashboard/Teacher/pages/documents'
 import ClassTeacher from './pages/dashboard/Teacher/pages/class'
+import CourseTeacher from './pages/dashboard/Teacher/pages/course'
 
 const router = createBrowserRouter([
   {
@@ -50,10 +51,14 @@ const router = createBrowserRouter([
         path: 'class',
         element: <ClassTeacher />
       },
+      {
+        path: 'course',
+        element: <CourseTeacher />
+      }
     ]
   },
   {
-    path: '/studentdocs/upload',
+    path: '/studentdocs/document/upload',
     element: <UploadPage />
   },
   {

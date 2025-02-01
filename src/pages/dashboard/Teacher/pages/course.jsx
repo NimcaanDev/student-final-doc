@@ -2,64 +2,52 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorAlert from "../../../../components/errorAlert";
 import Loading from "../../../../components/loading";
-import { getDocuments } from "../../../../../redux/slices/documentSlices/documentSlice";
 import { FaPen, FaPlus, FaTrash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { getAllClassesFn } from "../../../../../redux/slices/classSlice";
+import { getAllCourses } from "../../../../../redux/slices/courseSlice";
 
-const DocumentsTeacher = () => {
-    const documentState = useSelector((state) => state.document);
+const CourseTeacher = () => {
+    const courseState = useSelector((state) => state.course);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getDocuments());
+        dispatch(getAllCourses())
     }, [dispatch]);
 
-    if (documentState.error) return <ErrorAlert message={documentState.error} />;
-    if (documentState.isLoading) return <Loading />;
+    if (courseState.error) return <ErrorAlert message={courseState.error} />;
+    if (courseState.isLoading) return <Loading />;
 
     return (
         <div className="p-4">
             <div className="flex justify-between items-center mb-2">
-                <h1 className="font-bold text-xl text-blue-700">Documents</h1>
-                <Link to='/studentdocs/document/upload'><button className="text-white bg-blue-700 w-fit px-5 py-2 hover:bg-blue-800 rounded-md transition flex gap-2 items-center"><FaPlus /> Upload Document</button></Link>
+                <h1 className="font-bold text-xl text-blue-700">Course</h1>
+                <button className="text-white bg-blue-700 w-fit px-5 py-2 hover:bg-blue-800 rounded-md transition flex gap-2 items-center"><FaPlus /> New Course</button>
             </div>
-            {documentState.data?.documents?.length > 0 ? (
+            {courseState.data?.courses?.length > 0 ? (
                 <table className="table-fixed w-full border-collapse border border-gray-300 bg-white shadow-md">
                     <thead>
                         <tr className="bg-blue-200">
                             <th className="px-3 py-2 border">ID</th>
                             <th className="px-3 py-2 border">Name</th>
-                            <th className="px-3 py-2 border">Description</th>
+                            <th className="px-3 py-2 border">Semester</th>
                             <th className="px-3 py-2 border">Faculty</th>
-                            <th className="px-3 py-2 border">Teacher</th>
-                            <th className="px-3 py-2 border">Course</th>
-                            <th className="px-3 py-2 border">Classes</th>
                             <th className="px-3 py-2 border">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {documentState.data.documents.map((document) => (
-                            <tr key={document.id} className="border-b hover:bg-gray-50">
+                        {courseState.data.courses.map((course) => (
+                            <tr key={course.id} className="border-b hover:bg-gray-50">
                                 <td className="px-3 py-1 text-sm text-gray-900 border">
-                                    {document.id.length > 10 ? document.id.slice(0, 10) + "..." : document.id}
+                                    {course.id.length > 10 ? course.id.slice(0, 10) + "..." : course.id}
                                 </td>
                                 <td className="px-3 py-1 text-sm text-gray-900 border">
-                                    {document.name}
+                                    {course.name}
                                 </td>
                                 <td className="px-3 py-1 text-sm text-gray-900 border">
-                                    {document.description || "No description"}
+                                    {course.semester || "No description"}
                                 </td>
                                 <td className="px-3 py-1 text-sm text-gray-900 border">
-                                    {document.faculty?.name || "N/A"}
-                                </td>
-                                <td className="px-3 py-1 text-sm text-gray-900 border">
-                                    {document.user.username || "N/A"}
-                                </td>
-                                <td className="px-3 py-1 text-sm text-gray-900 border">
-                                    {document.course?.name || "No Course"}
-                                </td>
-                                <td className="px-3 py-1 text-sm text-gray-900 border">
-                                    {document.classes?.map((cls) => cls.class.name).join(", ") || "No Classes"}
+                                    {course.faculty.name || "N/A"}
                                 </td>
                                 <td>
                                     <div className="flex justify-center items-center gap-2">
@@ -90,4 +78,4 @@ const DocumentsTeacher = () => {
     );
 };
 
-export default DocumentsTeacher;
+export default CourseTeacher;
