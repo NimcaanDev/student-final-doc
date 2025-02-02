@@ -9,13 +9,13 @@ const initialState = {
     data: {},
 }
 
-export const deleteFacultyFn = createAsyncThunk(
-    'delete/faculty',
-    async (id, { rejectWithValue, getState }) => {
+export const createFacultyFn = createAsyncThunk(
+    'create/class',
+    async (data, { rejectWithValue, getState }) => {
         const stateData = getState()
         const { token } = stateData?.user?.data
         try {
-            const res = await axios.delete(`${baseUrl}faculties/delete/${id}`, {
+            const res = await axios.post(`${baseUrl}faculties/new`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -28,21 +28,21 @@ export const deleteFacultyFn = createAsyncThunk(
     }
 )
 
-export const deleteFacultySlice = createSlice({
-    name: 'deleteFaculty',
+export const createFacultySlice = createSlice({
+    name: 'createFaculty',
     initialState,
     extraReducers: (builder) => {
-        builder.addCase(deleteFacultyFn.pending, (state) => {
+        builder.addCase(createFacultyFn.pending, (state) => {
             state.isLoading = true
             state.error = ''
             state.data = {}
         })
-        builder.addCase(deleteFacultyFn.rejected, (state, action) => {
+        builder.addCase(createFacultyFn.rejected, (state, action) => {
             state.isLoading = false
             state.error = action.payload
             state.data = {}
         })
-        builder.addCase(deleteFacultyFn.fulfilled, (state, action) => {
+        builder.addCase(createFacultyFn.fulfilled, (state, action) => {
             state.isLoading = false
             state.error = ''
             state.data = action.payload
