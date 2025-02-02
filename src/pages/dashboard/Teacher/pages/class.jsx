@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorAlert from "../../../../components/errorAlert";
 import Loading from "../../../../components/loading";
-import { FaPen, FaPlus, FaRedo, FaTrash } from "react-icons/fa";
-import { getAllFaculties } from "../../../../../redux/slices/facultySlice";
+import { FaRedo } from "react-icons/fa";
 import UpdateClass from "../../updateDialog/classUpdate";
 import { getAllClassesFn } from "../../../../../redux/slices/classSlices/classSlice";
 import DeleteClassAlert from "../../alertDialogs/deleteClassAlert";
@@ -11,7 +10,6 @@ import CreateClass from "../../createDialogs/createClassDialogs";
 
 const ClassTeacher = () => {
     const classState = useSelector((state) => state.class);
-    const facultyState = useSelector(state => state.faculty);
     const dispatch = useDispatch();
 
     useEffect(() => {
