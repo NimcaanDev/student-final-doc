@@ -6,21 +6,18 @@ import { FaPlus, FaRedo } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { getAllFaculties } from "../../../../../redux/slices/facultySlices/facultySlice";
 import UpdateFaculty from "../../updateDialog/facultyUpdateDialog";
+import DeleteFacultyAlert from "../../alertDialogs/deleteFacultyAlert";
 
 const FacultiesAdmin = () => {
     const facultyState = useSelector((state) => state.faculty);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!facultyState.data?.faculties) {
-            dispatch(getAllFaculties());
-        }
-    }, [dispatch, facultyState.data]);
+        dispatch(getAllFaculties());
+    }, [dispatch]);
 
     const refresh = () => {
-        if (!facultyState.data?.faculties) {
-            dispatch(getAllFaculties());
-        };
+        dispatch(getAllFaculties());
     }
 
     if (facultyState.error) return <ErrorAlert message={facultyState.error} />;
@@ -66,7 +63,7 @@ const FacultiesAdmin = () => {
                                                 <UpdateFaculty key={faculty.id} faculty_id={faculty.id} />
                                             </div>
                                             <div className="bg-red-700 text-white text-sm rounded-md hover:bg-blue-700">
-                                                {/* <AlertDialog key={document.id} document_id={document.id} /> */}
+                                                <DeleteFacultyAlert key={faculty.id} faculty_id={faculty.id} />
                                             </div>
                                         </div>
                                     </td>

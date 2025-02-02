@@ -20,12 +20,14 @@ import { deleteCourseSlice } from './slices/courseSlices/deleteCourseSlice'
 import { createCourseSlice } from './slices/courseSlices/createCourseSlice'
 import { allUsersSlice } from './slices/userSlices/allUsersSlice'
 import { updateFacultySlice } from './slices/facultySlices/updateFacultySlice'
+import { deleteFacultySlice } from './slices/facultySlices/deleteFacultySlice'
 
 const store = configureStore({
     reducer: {
         sideBar: sideBarSlice.reducer,
         faculty: facultySlice.reducer,
         updateFaculty: updateFacultySlice.reducer,
+        deleteFaculty: deleteFacultySlice.reducer,
         course: courseSlice.reducer,
         singleCourse: getSingleCourseSlice.reducer,
         newCourse: createCourseSlice.reducer,
