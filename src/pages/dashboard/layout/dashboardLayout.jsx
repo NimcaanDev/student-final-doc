@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import DashboardHeader from '../dashboardHeader'
-import { useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import SidebarDashboard from '../Admin/sidebar'
 
 const DashboardLayoutAdmin = () => {
@@ -19,7 +19,14 @@ const DashboardLayoutAdmin = () => {
     return (
         <div className='dashboard'>
             <DashboardHeader />
-            <SidebarDashboard />
+            <div className="flex">
+                <div className='md:w-[25%]'>
+                    <SidebarDashboard />
+                </div>
+                <div className="bg-blue-100 flex-grow w-full">
+                    <Outlet />
+                </div>
+            </div>
         </div>
     )
 }

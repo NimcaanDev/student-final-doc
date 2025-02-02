@@ -14,6 +14,8 @@ import HomeTeacher from './pages/dashboard/Teacher/pages/home'
 import DocumentsTeacher from './pages/dashboard/Teacher/pages/documents'
 import ClassTeacher from './pages/dashboard/Teacher/pages/class'
 import CourseTeacher from './pages/dashboard/Teacher/pages/course'
+import DocumentsAdmin from './pages/dashboard/Admin/Pages/documents'
+import HomeAdmin from './pages/dashboard/Admin/Pages/homeAdmin'
 
 const router = createBrowserRouter([
   {
@@ -33,8 +35,27 @@ const router = createBrowserRouter([
   {
     path: '/studentdocs/dashboard/admin',
     element: <DashboardLayoutAdmin />,
-    // children: []
+    children: [
+      {
+        index: true,
+        element: <HomeAdmin />
+      },
+      {
+        path: 'document',
+        element: <DocumentsAdmin />
+      },
+      {
+        path: 'class',
+        element: <ClassTeacher />
+      },
+      {
+        path: 'course',
+        element: <CourseTeacher />
+      }
+    ]
   },
+
+  // Teacher Dashboard
   {
     path: '/studentdocs/dashboard/teacher',
     element: <DashboardLayoutTeacher />,
