@@ -4,7 +4,8 @@ import ErrorAlert from "../../../../components/errorAlert";
 import Loading from "../../../../components/loading";
 import { FaPen, FaPlus, FaTrash } from "react-icons/fa";
 import { getAllClassesFn } from "../../../../../redux/slices/classSlices/classSlice";
-import { getAllCourses } from "../../../../../redux/slices/courseSlice";
+import { getAllCourses } from "../../../../../redux/slices/courseSlices/courseSlice";
+import UpdateCourse from "../../updateDialog/courseUpdate";
 
 const CourseTeacher = () => {
     const courseState = useSelector((state) => state.course);
@@ -52,9 +53,9 @@ const CourseTeacher = () => {
                                     </td>
                                     <td>
                                         <div className="flex justify-center items-center gap-2">
-                                            <button className="bg-blue-700 text-white px-2 py-2 text-sm rounded-md hover:bg-blue-700">
-                                                <FaPen />
-                                            </button>
+                                            <div className="bg-blue-700 text-white text-sm rounded-md hover:bg-blue-700">
+                                                <UpdateCourse course_id={course.id} />
+                                            </div>
                                             <button className="bg-red-700 text-white px-2 py-2 text-sm rounded-md hover:bg-blue-700">
                                                 <FaTrash />
                                             </button>

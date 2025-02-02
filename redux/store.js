@@ -5,7 +5,7 @@ import { loginSlice } from './slices/auth/loginSlice'
 import { documentSlice } from './slices/documentSlices/documentSlice'
 import { getSingleDocumentSlice } from './slices/documentSlices/getSingleDocumentSlice'
 import { uploadDocumentSlice } from './slices/documentSlices/uploadDocumentSlice'
-import { courseSlice } from './slices/courseSlice'
+import { courseSlice } from './slices/courseSlices/courseSlice'
 import { getSingleClassSlice } from './slices/classSlices/getSingleClassSlice'
 import { deleteClassSlice } from './slices/classSlices/deleteClassSlice'
 import { updateDocumentSlice } from './slices/documentSlices/updateDocumentSlice'
@@ -14,12 +14,16 @@ import { deleteUserSlice } from './slices/userSlices/deleteUserSlice'
 import { updateClassSlice } from './slices/classSlices/updateClassSlice'
 import { classSlice } from './slices/classSlices/classSlice'
 import { CreateCLassSLice } from './slices/classSlices/createClassSlice'
+import { updateCourseSlice } from './slices/courseSlices/updateCourseSlice'
+import { getSingleCourseSlice } from './slices/courseSlices/getSingleCourse'
 
 const store = configureStore({
     reducer: {
         sideBar: sideBarSlice.reducer,
         faculty: facultySlice.reducer,
         course: courseSlice.reducer,
+        singleCourse: getSingleCourseSlice.reducer,
+        updateCourse: updateCourseSlice.reducer,
         class: classSlice.reducer,
         singleClass: getSingleClassSlice.reducer,
         newClass: CreateCLassSLice.reducer,
