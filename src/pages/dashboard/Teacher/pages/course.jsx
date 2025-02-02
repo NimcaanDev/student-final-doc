@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorAlert from "../../../../components/errorAlert";
 import Loading from "../../../../components/loading";
-import { FaPen, FaPlus, FaTrash } from "react-icons/fa";
-import { getAllClassesFn } from "../../../../../redux/slices/classSlices/classSlice";
+import { FaPlus, FaTrash } from "react-icons/fa";
 import { getAllCourses } from "../../../../../redux/slices/courseSlices/courseSlice";
 import UpdateCourse from "../../updateDialog/courseUpdate";
+import DeleteCourseAlert from "../../alertDialogs/deleteCourseAlert";
 
 const CourseTeacher = () => {
     const courseState = useSelector((state) => state.course);
@@ -54,11 +54,11 @@ const CourseTeacher = () => {
                                     <td>
                                         <div className="flex justify-center items-center gap-2">
                                             <div className="bg-blue-700 text-white text-sm rounded-md hover:bg-blue-700">
-                                                <UpdateCourse course_id={course.id} />
+                                                <UpdateCourse key={course.id} course_id={course.id} />
                                             </div>
-                                            <button className="bg-red-700 text-white px-2 py-2 text-sm rounded-md hover:bg-blue-700">
-                                                <FaTrash />
-                                            </button>
+                                            <div className="bg-red-700 text-white text-sm rounded-md hover:bg-blue-700">
+                                                <DeleteCourseAlert key={course.id} course_id={course.id} />
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>

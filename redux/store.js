@@ -16,6 +16,7 @@ import { classSlice } from './slices/classSlices/classSlice'
 import { CreateCLassSLice } from './slices/classSlices/createClassSlice'
 import { updateCourseSlice } from './slices/courseSlices/updateCourseSlice'
 import { getSingleCourseSlice } from './slices/courseSlices/getSingleCourse'
+import { deleteCourseSlice } from './slices/courseSlices/deleteCourseSlice'
 
 const store = configureStore({
     reducer: {
@@ -24,6 +25,7 @@ const store = configureStore({
         course: courseSlice.reducer,
         singleCourse: getSingleCourseSlice.reducer,
         updateCourse: updateCourseSlice.reducer,
+        deleteCourse: deleteCourseSlice.reducer,
         class: classSlice.reducer,
         singleClass: getSingleClassSlice.reducer,
         newClass: CreateCLassSLice.reducer,

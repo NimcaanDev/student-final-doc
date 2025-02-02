@@ -4,19 +4,19 @@ import { FaTrash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import { useEffect } from "react";
-import { deleteClassFn } from "../../../../redux/slices/classSlices/deleteClassSlice";
+import { deleteCourseFn } from "../../../../redux/slices/courseSlices/deleteCourseSlice";
 
-const DeleteClassAlert = ({ class_id }) => {
-    const deletedClassState = useSelector(state => state.deleteClass)
+const DeleteCourseAlert = ({ course_id }) => {
+    const deleteCourseState = useSelector(state => state.deleteCourse)
     const dispatch = useDispatch()
     const deleteHandler = () => {
-        dispatch(deleteClassFn(class_id))
+        dispatch(deleteCourseFn(course_id))
     }
     const successToastId = 'success-toast'
 
     useEffect(() => {
-        if (deletedClassState?.error) {
-            toast.error(deletedClassState.error, {
+        if (deleteCourseState?.error) {
+            toast.error(deleteCourseState.error, {
                 toastId: successToastId,
                 position: "top-right",
                 autoClose: 5000,
@@ -30,7 +30,7 @@ const DeleteClassAlert = ({ class_id }) => {
             });
         }
 
-        if (deletedClassState?.data?.isSuccess) {
+        if (deleteCourseState?.data?.isSuccess) {
             toast.success("Deleted Successfully", {
                 toastId: successToastId,
                 position: "top-right",
@@ -44,7 +44,7 @@ const DeleteClassAlert = ({ class_id }) => {
                 transition: Bounce,
             });
         }
-    }, [deletedClassState.data, deletedClassState.error]);
+    }, [deleteCourseState.data, deleteCourseState.error]);
 
     return (
         <AlertDialog.Root>
@@ -81,4 +81,4 @@ const DeleteClassAlert = ({ class_id }) => {
     )
 };
 
-export default DeleteClassAlert;
+export default DeleteCourseAlert;

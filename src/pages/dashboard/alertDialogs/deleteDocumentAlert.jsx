@@ -31,7 +31,7 @@ const DeleteDocumentAlert = ({ document_id }) => {
         }
 
         if (deletedDocumentState?.data?.isSuccess) {
-            toast.success("Uploaded Successfully", {
+            toast.success("Deleted Successfully", {
                 toastId: successToastId,
                 position: "top-right",
                 autoClose: 5000,
