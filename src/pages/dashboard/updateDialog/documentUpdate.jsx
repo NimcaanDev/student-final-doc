@@ -69,7 +69,7 @@ const UpdateDocument = ({ document_id }) => {
         }
 
         if (updateState?.data?.isSuccess) {
-            toast.success("Uploaded Successfully", {
+            toast.success("Updated Successfully", {
                 toastId: successToastId,
                 position: "top-right",
                 autoClose: 5000,
