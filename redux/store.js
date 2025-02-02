@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { sideBarSlice } from './slices/sideBarSlice'
-import { facultySlice } from './slices/facultySlice'
+import { facultySlice } from './slices/facultySlices/facultySlice'
 import { loginSlice } from './slices/auth/loginSlice'
 import { documentSlice } from './slices/documentSlices/documentSlice'
 import { getSingleDocumentSlice } from './slices/documentSlices/getSingleDocumentSlice'
@@ -19,11 +19,13 @@ import { getSingleCourseSlice } from './slices/courseSlices/getSingleCourse'
 import { deleteCourseSlice } from './slices/courseSlices/deleteCourseSlice'
 import { createCourseSlice } from './slices/courseSlices/createCourseSlice'
 import { allUsersSlice } from './slices/userSlices/allUsersSlice'
+import { updateFacultySlice } from './slices/facultySlices/updateFacultySlice'
 
 const store = configureStore({
     reducer: {
         sideBar: sideBarSlice.reducer,
         faculty: facultySlice.reducer,
+        updateFaculty: updateFacultySlice.reducer,
         course: courseSlice.reducer,
         singleCourse: getSingleCourseSlice.reducer,
         newCourse: createCourseSlice.reducer,

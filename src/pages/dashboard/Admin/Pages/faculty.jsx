@@ -2,23 +2,25 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorAlert from "../../../../components/errorAlert";
 import Loading from "../../../../components/loading";
-import { getDocuments } from "../../../../../redux/slices/documentSlices/documentSlice";
 import { FaPlus, FaRedo } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import UpdateDocument from "../../updateDialog/documentUpdate";
-import AlertDialog from "../../alertDialogs/deleteDocumentAlert";
-import { getAllFaculties } from "../../../../../redux/slices/facultySlice";
+import { getAllFaculties } from "../../../../../redux/slices/facultySlices/facultySlice";
+import UpdateFaculty from "../../updateDialog/facultyUpdateDialog";
 
 const FacultiesAdmin = () => {
     const facultyState = useSelector((state) => state.faculty);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getAllFaculties());
-    }, [dispatch]);
+        if (!facultyState.data?.faculties) {
+            dispatch(getAllFaculties());
+        }
+    }, [dispatch, facultyState.data]);
 
     const refresh = () => {
-        dispatch(getAllFaculties());
+        if (!facultyState.data?.faculties) {
+            dispatch(getAllFaculties());
+        };
     }
 
     if (facultyState.error) return <ErrorAlert message={facultyState.error} />;
@@ -35,7 +37,7 @@ const FacultiesAdmin = () => {
                     <Link to='/studentdocs/document/upload'><button className="text-white bg-blue-700 w-fit px-5 py-2 hover:bg-blue-800 rounded-md transition flex gap-2 items-center"><FaPlus /> New Faculties</button></Link>
                 </div>
             </div>
-            {facultyState.data.faculties?.length > 0 ? (
+            {facultyState.data?.faculties?.length > 0 ? (
                 <div className="overflow-x-auto">
                     <table className="table-fixed w-[200%] md:w-full border-collapse border border-gray-300 bg-white shadow-md">
                         <thead>
@@ -61,7 +63,7 @@ const FacultiesAdmin = () => {
                                     <td>
                                         <div className="flex justify-center items-center gap-2">
                                             <div className="bg-blue-700 text-white text-sm rounded-md hover:bg-blue-700">
-                                                {/* <UpdateDocument key={document.id} document_id={document.id} /> */}
+                                                <UpdateFaculty key={faculty.id} faculty_id={faculty.id} />
                                             </div>
                                             <div className="bg-red-700 text-white text-sm rounded-md hover:bg-blue-700">
                                                 {/* <AlertDialog key={document.id} document_id={document.id} /> */}

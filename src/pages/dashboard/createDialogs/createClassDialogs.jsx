@@ -9,7 +9,7 @@ import { Bounce, toast, ToastContainer } from "react-toastify";
 import * as yup from "yup";
 import Loading from "../../../components/loading";
 import { getSingleClassFn } from "../../../../redux/slices/classSlices/getSingleClassSlice";
-import { getAllFaculties } from "../../../../redux/slices/facultySlice";
+import { getAllFaculties } from "../../../../redux/slices/facultySlices/facultySlice";
 import { createClassFn } from "../../../../redux/slices/classSlices/createClassSlice";
 
 const CreateClass = () => {

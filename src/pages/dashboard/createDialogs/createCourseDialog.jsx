@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import { Dialog } from "radix-ui";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import * as yup from "yup";
-import { getAllFaculties } from "../../../../redux/slices/facultySlice";
+import { getAllFaculties } from "../../../../redux/slices/facultySlices/facultySlice";
 import { createCourseFn } from "../../../../redux/slices/courseSlices/createCourseSlice";
 
 const CreateCourse = () => {

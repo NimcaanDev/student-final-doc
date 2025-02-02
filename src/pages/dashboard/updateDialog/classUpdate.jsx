@@ -10,7 +10,7 @@ import * as yup from "yup";
 import Loading from "../../../components/loading";
 import { getSingleClassFn } from "../../../../redux/slices/classSlices/getSingleClassSlice";
 import { updateClassFn } from "../../../../redux/slices/classSlices/updateClassSlice";
-import { getAllFaculties } from "../../../../redux/slices/facultySlice";
+import { getAllFaculties } from "../../../../redux/slices/facultySlices/facultySlice";
 
 const UpdateClass = ({ class_id }) => {
     const updateState = useSelector(state => state.updateClass);

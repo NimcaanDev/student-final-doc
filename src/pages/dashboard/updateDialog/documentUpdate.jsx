@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { FaPen } from "react-icons/fa";
-import { getAllFaculties } from "../../../../redux/slices/facultySlice";
+import { getAllFaculties } from "../../../../redux/slices/facultySlices/facultySlice";
 import { getAllCourses } from "../../../../redux/slices/courseSlices/courseSlice";
 import { getAllClassesFn } from "../../../../redux/slices/classSlices/classSlice";
 import { useFormik } from "formik";

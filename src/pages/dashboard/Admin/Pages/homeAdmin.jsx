@@ -5,7 +5,7 @@ import { getDocuments } from '../../../../../redux/slices/documentSlices/documen
 import { getAllClassesFn } from '../../../../../redux/slices/classSlices/classSlice';
 import { getAllUsers } from '../../../../../redux/slices/userSlices/allUsersSlice';
 import { getAllCourses } from '../../../../../redux/slices/courseSlices/courseSlice';
-import { getAllFaculties } from '../../../../../redux/slices/facultySlice';
+import { getAllFaculties } from '../../../../../redux/slices/facultySlices/facultySlice';
 
 const HomeAdmin = () => {
     const userData = JSON.parse(localStorage.getItem('userData'))

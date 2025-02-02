@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getAllFaculties, getSingleFaculty, resetSelectedFaculty } from "../../redux/slices/facultySlice";
+import { getAllFaculties, getSingleFaculty, resetSelectedFaculty } from "../../redux/slices/facultySlices/facultySlice";
 import Loading from "./loading";
 import { RiCustomerService2Fill } from "react-icons/ri";
 

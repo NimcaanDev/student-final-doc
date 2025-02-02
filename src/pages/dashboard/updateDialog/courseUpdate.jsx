@@ -8,7 +8,6 @@ import { Dialog } from "radix-ui";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import * as yup from "yup";
 import Loading from "../../../components/loading";
-import { getAllFaculties } from "../../../../redux/slices/facultySlice";
 import { getSingleCourseFn } from "../../../../redux/slices/courseSlices/getSingleCourse";
 import { updateCourseFn } from "../../../../redux/slices/courseSlices/updateCourseSlice";
 

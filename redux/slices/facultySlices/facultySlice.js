@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { DEFAULT_ERROR_MESSAGE } from '../../src/constants/defaultErrorMessage'
 import axios from 'axios'
-import { baseUrl } from '../../src/constants/baseUrl'
+import { DEFAULT_ERROR_MESSAGE } from '../../../src/constants/defaultErrorMessage'
+import { baseUrl } from '../../../src/constants/baseUrl'
 
 const initialState = {
     isLoading: false,
@@ -48,7 +48,9 @@ export const facultySlice = createSlice({
     },
     extraReducers(builder) {
         builder.addCase(getAllFaculties.pending, (state) => {
-            ;(state.isLoading = true), (state.error = ''), (state.data = {})
+            state.isLoading = true
+            state.error = ''
+            state.data = {}
         })
         builder.addCase(getAllFaculties.rejected, (state, action) => {
             ;(state.isLoading = false),
@@ -63,11 +65,17 @@ export const facultySlice = createSlice({
         builder.addCase(getSingleFaculty.pending, (state) => {
             state.isSingleLoading = true
             state.isSingleError = ''
+            state.selectedFaculty = {}
         })
         builder.addCase(getSingleFaculty.fulfilled, (state, action) => {
             ;(state.isSingleLoading = false),
                 (state.isSingleError = ''),
                 (state.selectedFaculty = action.payload)
+        })
+        builder.addCase(getSingleFaculty.rejected, (state, action) => {
+            state.isSingleLoading = false
+            state.isSingleError = action.payload
+            state.selectedFaculty = {}
         })
     },
 })
