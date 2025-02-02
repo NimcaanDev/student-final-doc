@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { getAllUsers } from "../../../../../redux/slices/userSlices/allUsersSlice";
 import { maskEmail } from "../../../../components/maskEmail";
 import UpdateUser from "../../updateDialog/userUpdateDialog";
+import DeleteUserAlert from "../../alertDialogs/deleteUserAlert";
 
 const UsersAdmin = () => {
     const userState = useSelector((state) => state.allUsers);
@@ -71,7 +72,7 @@ const UsersAdmin = () => {
                                                 <UpdateUser key={user.id} user_id={user.id} />
                                             </div>
                                             <div className="bg-red-700 text-white text-sm rounded-md hover:bg-blue-700">
-                                                {/* <AlertDialog key={document.id} document_id={document.id} /> */}
+                                                <DeleteUserAlert key={user.id} user_id={user.id} />
                                             </div>
                                         </div>
                                     </td>

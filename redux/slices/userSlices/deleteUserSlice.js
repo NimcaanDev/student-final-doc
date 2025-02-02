@@ -15,7 +15,7 @@ export const deleteUserFn = createAsyncThunk(
         const stateData = getState()
         const { token } = stateData?.user?.data
         try {
-            const res = await axios.delete(`${baseUrl}users/delete`, id, {
+            const res = await axios.delete(`${baseUrl}users/delete/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
