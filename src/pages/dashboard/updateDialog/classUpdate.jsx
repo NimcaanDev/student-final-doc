@@ -3,28 +3,24 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { FaPen } from "react-icons/fa";
-import { getAllFaculties } from "../../../../redux/slices/facultySlice";
-import { getAllCourses } from "../../../../redux/slices/courseSlice";
-import { getAllClassesFn } from "../../../../redux/slices/classSlices/classSlice";
 import { useFormik } from "formik";
 import { Dialog } from "radix-ui";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import * as yup from "yup";
-import { getSingleDocument } from "../../../../redux/slices/documentSlices/getSingleDocumentSlice";
 import Loading from "../../../components/loading";
-import { updateDocumentFn } from "../../../../redux/slices/documentSlices/updateDocumentSlice";
+import { getSingleClassFn } from "../../../../redux/slices/classSlices/getSingleClassSlice";
+import { updateClassFn } from "../../../../redux/slices/classSlices/updateClassSlice";
+import { getAllFaculties } from "../../../../redux/slices/facultySlice";
 
-const UpdateDocument = ({ document_id }) => {
-    const updateState = useSelector(state => state.updateDocument);
-    const selectedDocumentState = useSelector(state => state.singleDocument);
+const UpdateClass = ({ document_id }) => {
+    const updateState = useSelector(state => state.updateClass);
+    const selectedClassState = useSelector(state => state.singleClass);
     const successToastId = 'success-toast';
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getAllFaculties());
-        dispatch(getAllCourses());
-        dispatch(getAllClassesFn());
     }, [dispatch]);
 
     const formik = useFormik({
@@ -44,7 +40,7 @@ const UpdateDocument = ({ document_id }) => {
                 file_type: values.file_type,
             };
 
-            dispatch(updateDocumentFn(data));
+            dispatch(updateClassFn(data));
         },
         validationSchema: yup.object({
             name: yup.string().required("Please enter the name"),
@@ -85,23 +81,23 @@ const UpdateDocument = ({ document_id }) => {
     }, [updateState.data, updateState.error]);
 
     const handleDialogOpen = () => {
-        dispatch(getSingleDocument(document_id));
+        dispatch(getSingleClassFn(document_id));
     };
 
     useEffect(() => {
-        if (selectedDocumentState.singleData?.selectedDocument) {
+        if (selectedClassState.singleData?.selectedDocument) {
             formik.setValues({
-                name: selectedDocumentState.singleData.selectedDocument.name || '',
-                description: selectedDocumentState.singleData.selectedDocument.description || '',
-                faculty: selectedDocumentState.singleData.selectedDocument.faculty_id || '',
-                course: selectedDocumentState.singleData.selectedDocument.course.id || '',
-                file_type: selectedDocumentState.singleData.selectedDocument.file_type || 'PDF',
-                classes: selectedDocumentState.singleData.selectedDocument.classes || [],
+                name: selectedClassState.singleData.selectedDocument.name || '',
+                description: selectedClassState.singleData.selectedDocument.description || '',
+                faculty: selectedClassState.singleData.selectedDocument.faculty_id || '',
+                course: selectedClassState.singleData.selectedDocument.course.id || '',
+                file_type: selectedClassState.singleData.selectedDocument.file_type || 'PDF',
+                classes: selectedClassState.singleData.selectedDocument.classes || [],
             });
         }
-    }, [selectedDocumentState.singleData]);
+    }, [selectedClassState.singleData]);
 
-    return selectedDocumentState.singleLoading ? <div className="bg-gray-800"><Loading /></div> : (
+    return selectedClassState.singleLoading ? <div className="bg-gray-800"><Loading /></div> : (
         <Dialog.Root onOpenChange={handleDialogOpen}>
             <Dialog.Trigger asChild>
                 <button className="inline-flex items-center justify-center rounded bg-violet4 px-2 py-2 font-medium leading-none text-violet11 outline-none outline-offset-1 hover:bg-mauve3 focus-visible:outline-2 focus-visible:outline-violet6 select-none">
@@ -187,4 +183,4 @@ const UpdateDocument = ({ document_id }) => {
     );
 };
 
-export default UpdateDocument;
+export default UpdateClass;

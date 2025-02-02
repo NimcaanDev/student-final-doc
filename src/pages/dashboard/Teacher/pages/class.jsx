@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import ErrorAlert from "../../../../components/errorAlert";
 import Loading from "../../../../components/loading";
 import { FaPen, FaPlus, FaTrash } from "react-icons/fa";
-import { getAllClassesFn } from "../../../../../redux/slices/classSlice";
 import { getAllFaculties } from "../../../../../redux/slices/facultySlice";
+import UpdateClass from "../../updateDialog/classUpdate";
+import { getAllClassesFn } from "../../../../../redux/slices/classSlices/classSlice";
 
 const ClassTeacher = () => {
     const classState = useSelector((state) => state.class);
@@ -53,12 +54,12 @@ const ClassTeacher = () => {
                                     </td>
                                     <td>
                                         <div className="flex justify-center items-center gap-2">
-                                            <button className="bg-blue-700 text-white px-2 py-2 text-sm rounded-md hover:bg-blue-700">
-                                                <FaPen />
-                                            </button>
-                                            <button className="bg-red-700 text-white px-2 py-2 text-sm rounded-md hover:bg-blue-700">
+                                            <div className="bg-blue-700 text-white text-sm rounded-md hover:bg-blue-700">
+                                                <UpdateClass class_id={cls.id} />
+                                            </div>
+                                            <div className="bg-red-700 text-white text-sm rounded-md hover:bg-blue-700">
                                                 <FaTrash />
-                                            </button>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>

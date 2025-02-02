@@ -11,7 +11,7 @@ import { Bounce, toast, ToastContainer } from 'react-toastify';
 import { uploadDocumentFn } from '../../redux/slices/documentSlices/uploadDocumentSlice';
 import { getAllFaculties } from '../../redux/slices/facultySlice';
 import { getAllCourses } from '../../redux/slices/courseSlice';
-import { getAllClassesFn } from '../../redux/slices/classSlice';
+import { getAllClassesFn } from '../../redux/slices/classSlices/classSlice';
 
 const UploadPage = () => {
   const uploadState = useSelector(state => state.uploadDocument);

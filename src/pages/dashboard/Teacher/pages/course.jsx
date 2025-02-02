@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ErrorAlert from "../../../../components/errorAlert";
 import Loading from "../../../../components/loading";
 import { FaPen, FaPlus, FaTrash } from "react-icons/fa";
-import { getAllClassesFn } from "../../../../../redux/slices/classSlice";
+import { getAllClassesFn } from "../../../../../redux/slices/classSlices/classSlice";
 import { getAllCourses } from "../../../../../redux/slices/courseSlice";
 
 const CourseTeacher = () => {

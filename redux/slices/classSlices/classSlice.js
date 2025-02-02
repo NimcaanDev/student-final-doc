@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { baseUrl } from '../../src/constants/baseUrl'
-import { DEFAULT_ERROR_MESSAGE } from '../../src/constants/defaultErrorMessage'
+import { baseUrl } from '../../../src/constants/baseUrl'
+import { DEFAULT_ERROR_MESSAGE } from '../../../src/constants/defaultErrorMessage'
 
 const initialState = {
     isLoading: false,

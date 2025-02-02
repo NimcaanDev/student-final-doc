@@ -6,10 +6,13 @@ import { documentSlice } from './slices/documentSlices/documentSlice'
 import { getSingleDocumentSlice } from './slices/documentSlices/getSingleDocumentSlice'
 import { uploadDocumentSlice } from './slices/documentSlices/uploadDocumentSlice'
 import { courseSlice } from './slices/courseSlice'
-import { classSlice } from './slices/classSlice'
+import { getSingleClassSlice } from './slices/classSlices/getSingleClassSlice'
+import { deleteClassSlice } from './slices/classSlices/deleteClassSlice'
 import { updateDocumentSlice } from './slices/documentSlices/updateDocumentSlice'
 import { deleteDocumentSlice } from './slices/documentSlices/deleteDocumentSlice'
 import { deleteUserSlice } from './slices/userSlices/deleteUserSlice'
+import { updateClassSlice } from './slices/classSlices/updateClassSlice'
+import { classSlice } from './slices/classSlices/classSlice'
 
 const store = configureStore({
     reducer: {
@@ -17,6 +20,9 @@ const store = configureStore({
         faculty: facultySlice.reducer,
         course: courseSlice.reducer,
         class: classSlice.reducer,
+        singleClass: getSingleClassSlice.reducer,
+        updateClass: updateClassSlice.reducer,
+        deleteClass: deleteClassSlice.reducer,
         document: documentSlice.reducer,
         singleDocument: getSingleDocumentSlice.reducer,
         uploadDocument: uploadDocumentSlice.reducer,
