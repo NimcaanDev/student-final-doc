@@ -13,7 +13,7 @@ import { updateUserFn } from "../../../../redux/slices/userSlices/updateUserSlic
 import { getSingleUser } from "../../../../redux/slices/userSlices/getSingleUserSlice";
 
 const UpdateUser = ({ user_id }) => {
-    const updateState = useSelector(state => state.updateCourse);
+    const updateState = useSelector(state => state.updateUser);
     const selectedUserState = useSelector(state => state.singleUser);
     const successToastId = 'success-toast';
 
@@ -28,7 +28,7 @@ const UpdateUser = ({ user_id }) => {
         },
         onSubmit(values) {
             const data = {
-                id: course_id,
+                id: user_id,
                 username: values.username,
                 email: values.email,
                 phone_number: values.phone_number,
