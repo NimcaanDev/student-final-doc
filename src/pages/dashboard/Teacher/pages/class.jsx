@@ -6,6 +6,7 @@ import { FaPen, FaPlus, FaTrash } from "react-icons/fa";
 import { getAllFaculties } from "../../../../../redux/slices/facultySlice";
 import UpdateClass from "../../updateDialog/classUpdate";
 import { getAllClassesFn } from "../../../../../redux/slices/classSlices/classSlice";
+import DeleteClassAlert from "../../alertDialogs/deleteClassAlert";
 
 const ClassTeacher = () => {
     const classState = useSelector((state) => state.class);
@@ -55,10 +56,10 @@ const ClassTeacher = () => {
                                     <td>
                                         <div className="flex justify-center items-center gap-2">
                                             <div className="bg-blue-700 text-white text-sm rounded-md hover:bg-blue-700">
-                                                <UpdateClass class_id={cls.id} />
+                                                <UpdateClass key={cls.id} class_id={cls.id} />
                                             </div>
                                             <div className="bg-red-700 text-white text-sm rounded-md hover:bg-blue-700">
-                                                <FaTrash />
+                                                <DeleteClassAlert key={cls.id} class_id={cls.id} />
                                             </div>
                                         </div>
                                     </td>
