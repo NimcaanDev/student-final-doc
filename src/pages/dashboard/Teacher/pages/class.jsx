@@ -7,6 +7,7 @@ import { getAllFaculties } from "../../../../../redux/slices/facultySlice";
 import UpdateClass from "../../updateDialog/classUpdate";
 import { getAllClassesFn } from "../../../../../redux/slices/classSlices/classSlice";
 import DeleteClassAlert from "../../alertDialogs/deleteClassAlert";
+import CreateClass from "../../createDialogs/createClassDialogs";
 
 const ClassTeacher = () => {
     const classState = useSelector((state) => state.class);
@@ -24,7 +25,9 @@ const ClassTeacher = () => {
         <div className="p-4">
             <div className="flex justify-between items-center mb-2">
                 <h1 className="font-bold text-xl text-blue-700">Classes</h1>
-                <button className="text-white bg-blue-700 w-fit px-5 py-2 hover:bg-blue-800 rounded-md transition flex gap-2 items-center"><FaPlus /> New Class</button>
+                <div className="text-white bg-blue-700 w-fit hover:bg-blue-800 rounded-md transition items-center">
+                    <CreateClass />
+                </div>
             </div>
             {classState.data?.classes?.length > 0 ? (
                 <div className="overflow-x-auto">
