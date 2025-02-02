@@ -17,6 +17,7 @@ import CourseTeacher from './pages/dashboard/Teacher/pages/course'
 import DocumentsAdmin from './pages/dashboard/Admin/Pages/documents'
 import HomeAdmin from './pages/dashboard/Admin/Pages/homeAdmin'
 import FacultiesAdmin from './pages/dashboard/Admin/Pages/faculty'
+import UsersAdmin from './pages/dashboard/Admin/Pages/user'
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomeAdmin />
+      },
+      {
+        path: 'user',
+        element: <UsersAdmin />
       },
       {
         path: 'document',

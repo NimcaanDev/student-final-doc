@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/slices/auth/loginSlice";
+import { maskEmail } from "./maskEmail";
 
 const PopoverDemo = () => {
     const userData = JSON.parse(localStorage.getItem("userData"));
@@ -34,7 +35,7 @@ const PopoverDemo = () => {
                         <fieldset className="flex items-center gap-5 hover:bg-gray-400 px-6 py-1 rounded-md">
                             <div className="user-info">
                                 <div className="username text-gray-800 text-xl font-bold">{userData?.user?.username}</div>
-                                <div className="email text-gray-500 text-sm">{userData?.user?.email}</div>
+                                <div className="email text-gray-500 text-sm">{maskEmail(userData?.user?.email)}</div>
                             </div>
                         </fieldset>
                         <div className="divider w-full h-[1px] bg-gray-200"></div>
