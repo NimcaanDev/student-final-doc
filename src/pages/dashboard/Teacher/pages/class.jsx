@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorAlert from "../../../../components/errorAlert";
 import Loading from "../../../../components/loading";
-import { FaPen, FaPlus, FaTrash } from "react-icons/fa";
+import { FaPen, FaPlus, FaRedo, FaTrash } from "react-icons/fa";
 import { getAllFaculties } from "../../../../../redux/slices/facultySlice";
 import UpdateClass from "../../updateDialog/classUpdate";
 import { getAllClassesFn } from "../../../../../redux/slices/classSlices/classSlice";
@@ -18,6 +18,10 @@ const ClassTeacher = () => {
         dispatch(getAllClassesFn())
     }, [dispatch]);
 
+    const refresh = () => {
+        dispatch(getAllClassesFn())
+    }
+
     if (classState.error) return <ErrorAlert message={classState.error} />;
     if (classState.isLoading) return <Loading />;
 
@@ -25,8 +29,13 @@ const ClassTeacher = () => {
         <div className="p-4">
             <div className="flex justify-between items-center mb-2">
                 <h1 className="font-bold text-xl text-blue-700">Classes</h1>
-                <div className="text-white bg-blue-700 w-fit hover:bg-blue-800 rounded-md transition items-center">
-                    <CreateClass />
+                <div className="flex items-center gap-5">
+                    <div className="text-xl text-gray-400 cursor-pointer hover:text-gray-700 transition" onClick={refresh}>
+                        <FaRedo />
+                    </div>
+                    <div className="text-white bg-blue-700 w-fit hover:bg-blue-800 rounded-md transition items-center">
+                        <CreateClass />
+                    </div>
                 </div>
             </div>
             {classState.data?.classes?.length > 0 ? (

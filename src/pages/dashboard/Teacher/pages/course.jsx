@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorAlert from "../../../../components/errorAlert";
 import Loading from "../../../../components/loading";
-import { FaPlus, FaTrash } from "react-icons/fa";
+import { FaRedo } from "react-icons/fa";
 import { getAllCourses } from "../../../../../redux/slices/courseSlices/courseSlice";
 import UpdateCourse from "../../updateDialog/courseUpdate";
 import DeleteCourseAlert from "../../alertDialogs/deleteCourseAlert";
+import CreateCourse from "../../createDialogs/createCourseDialog";
 
 const CourseTeacher = () => {
     const courseState = useSelector((state) => state.course);
@@ -15,6 +16,10 @@ const CourseTeacher = () => {
         dispatch(getAllCourses())
     }, [dispatch]);
 
+    const refresh = () => {
+        dispatch(getAllCourses())
+    }
+
     if (courseState.error) return <ErrorAlert message={courseState.error} />;
     if (courseState.isLoading) return <Loading />;
 
@@ -22,7 +27,14 @@ const CourseTeacher = () => {
         <div className="p-4">
             <div className="flex justify-between items-center mb-2">
                 <h1 className="font-bold text-xl text-blue-700">Course</h1>
-                <button className="text-white bg-blue-700 w-fit px-5 py-2 hover:bg-blue-800 rounded-md transition flex gap-2 items-center"><FaPlus /> New Course</button>
+                <div className="flex items-center gap-5">
+                    <div className="text-xl text-gray-400 cursor-pointer hover:text-gray-700 transition" onClick={refresh}>
+                        <FaRedo />
+                    </div>
+                    <div className="text-white bg-blue-700 w-fit hover:bg-blue-800 rounded-md transition flex gap-2 items-center">
+                        <CreateCourse />
+                    </div>
+                </div>
             </div>
             {courseState.data?.courses?.length > 0 ? (
                 <div className="overflow-x-auto">
@@ -53,10 +65,10 @@ const CourseTeacher = () => {
                                     </td>
                                     <td>
                                         <div className="flex justify-center items-center gap-2">
-                                            <div className="bg-blue-700 text-white text-sm rounded-md hover:bg-blue-700">
+                                            <div className="bg-blue-700 text-white text-sm rounded-md hover:bg-blue-900">
                                                 <UpdateCourse key={course.id} course_id={course.id} />
                                             </div>
-                                            <div className="bg-red-700 text-white text-sm rounded-md hover:bg-blue-700">
+                                            <div className="bg-red-700 text-white text-sm rounded-md hover:bg-red-900">
                                                 <DeleteCourseAlert key={course.id} course_id={course.id} />
                                             </div>
                                         </div>

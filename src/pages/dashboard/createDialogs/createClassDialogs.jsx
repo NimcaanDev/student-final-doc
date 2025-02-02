@@ -153,7 +153,7 @@ const CreateClass = () => {
                             }</select>
                         </fieldset>
                         <div className="mt-[25px] flex justify-end">
-                            <button type="submit" className="inline-flex h-[35px] items-center justify-center rounded bg-green-700 px-[15px] font-medium leading-none text-green-200 outline-none outline-offset-1 hover:bg-green-900 focus-visible:outline-2 focus-visible:outline-green-200 select-none">
+                            <button disabled={newClassState.isLoading || !formik.isValid} type="submit" className="disabled:bg-gray-500 inline-flex h-[35px] items-center justify-center rounded bg-green-700 px-[15px] font-medium leading-none text-green-200 outline-none outline-offset-1 hover:bg-green-900 focus-visible:outline-2 focus-visible:outline-green-200 select-none">
                                 Create Class
                             </button>
                         </div>

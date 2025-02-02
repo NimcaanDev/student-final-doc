@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ErrorAlert from "../../../../components/errorAlert";
 import Loading from "../../../../components/loading";
 import { getDocuments } from "../../../../../redux/slices/documentSlices/documentSlice";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaRedo } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import UpdateDocument from "../../updateDialog/documentUpdate";
 import AlertDialog from "../../alertDialogs/deleteDocumentAlert";
@@ -18,6 +18,10 @@ const DocumentsTeacher = () => {
         dispatch(getDocuments());
     }, [dispatch]);
 
+    const refresh = () => {
+        dispatch(getDocuments());
+    }
+
     if (documentState.error) return <ErrorAlert message={documentState.error} />;
     if (documentState.isLoading) return <Loading />;
 
@@ -27,7 +31,12 @@ const DocumentsTeacher = () => {
         <div className="p-4">
             <div className="flex justify-between items-center mb-2">
                 <h1 className="font-bold text-xl text-blue-700">Documents</h1>
-                <Link to='/studentdocs/document/upload'><button className="text-white bg-blue-700 w-fit px-5 py-2 hover:bg-blue-800 rounded-md transition flex gap-2 items-center"><FaPlus /> Upload Document</button></Link>
+                <div className="flex items-center gap-5">
+                    <div className="text-xl text-gray-400 cursor-pointer hover:text-gray-700 transition" onClick={refresh}>
+                        <FaRedo />
+                    </div>
+                    <Link to='/studentdocs/document/upload'><button className="text-white bg-blue-700 w-fit px-5 py-2 hover:bg-blue-800 rounded-md transition flex gap-2 items-center"><FaPlus /> Upload Document</button></Link>
+                </div>
             </div>
             {filteredDocuments?.length > 0 ? (
                 <div className="overflow-x-auto">
