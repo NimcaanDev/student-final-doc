@@ -16,10 +16,10 @@ const DashboardLayoutTeacher = () => {
         <div className='dashboard'>
             <DashboardHeader />
             <div className="flex">
-                <div className='w-[25%]'>
+                <div className='md:w-[25%]'>
                     <SideBarTeacher />
                 </div>
-                <div className="bg-blue-100 flex-grow">
+                <div className="bg-blue-100 flex-grow w-full">
                     <Outlet />
                 </div>
             </div>

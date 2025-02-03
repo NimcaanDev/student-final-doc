@@ -12,8 +12,8 @@ const ProjectOverview = () => {
                     Simultaneously, students, including those who join the class later, gain easy access to all necessary materials, ensuring they have the resources they need to succeed. This centralized system ultimately fosters a more efficient and streamlined learning environment for the entire educational community.</p>
             </div>
             <div className='who-am-i bg-white p-6 rounded-md shadow-md flex flex-col gap-2'>
-                <h1 className='text-blue-700 font-semibold text-xl'>😁 Who am I?</h1>
-                <p>Hi, I'm Suhaib Faisal, a Computer Science student in the 3C class at UOH, passionate about developing innovative solutions. This project reflects my interest in applying my programming skills to address real-world challenges, particularly within the education sector.</p>
+                <h1 className='text-blue-700 font-semibold text-xl'>😁 Who are we?</h1>
+                <p>We are Suhaib Faisal and Nima'n Abdillahi, Computer Science students in the 3C class at the University of Hargeisa. Both of us share a passion for developing innovative solutions that make a real impact. This project is a reflection of our dedication to applying our programming skills to solve real-world problems, particularly in the education sector. By leveraging technology, we aim to improve accessibility, streamline processes, and create user-friendly solutions that benefit students</p>
             </div>
             {/* <div className='reach-me bg-white p-6 rounded-md shadow-md flex flex-col gap-2'>
                 <h1 className='text-blue-700 font-semibold text-xl'>📞 Reach me</h1>
