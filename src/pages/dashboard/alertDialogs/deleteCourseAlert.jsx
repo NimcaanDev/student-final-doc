@@ -11,6 +11,7 @@ const DeleteCourseAlert = ({ course_id }) => {
     const dispatch = useDispatch()
     const deleteHandler = () => {
         dispatch(deleteCourseFn(course_id))
+        dispatch(deleteCourseFn())
     }
     const successToastId = 'success-toast'
 
